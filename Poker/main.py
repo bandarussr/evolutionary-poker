@@ -18,8 +18,14 @@ def main():
 
     # Run one full game (one round of Texas Hold'em)
     game.play()
+    for player in game.players:
+        print(f"{player.name}: ${player.chips.total_value()}")
     game.play()
+    for player in game.players:
+        print(f"{player.name}: ${player.chips.total_value()}")
     game.play()
+    for player in game.players:
+        print(f"{player.name}: ${player.chips.total_value()}")
     game.play()
     # Print final chip counts
     print("\n=== Final Chip Counts ===")

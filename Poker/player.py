@@ -49,18 +49,16 @@ class Player:
     # min_raise: the minimum amount that the player can raise to
     # community_cards: the cards that are on the table
     # Should return the action and the bet, None for bet if the action does not call for it
-    def make_decision(self, bet_size, min_raise, community_cards: List[Card]):
-        #return action, bet
-        # action = Action.CHECK
-        action = None
-        bet = 0
-        return action, bet
+    def make_decision(self, bet_size, min_raise, community_cards):
+        if self.bet.total_value() < bet_size.total_value():
+            return Action.CALL, bet_size
+        return Action.CHECK, 0
 
     # TODO:: make a check to see if the player can even put down the bet based on their stash of chips
     # NOTE:: even if they don't have enough of the same chip, they can always trade in chips to match if needed
     # NOTE:: the bet is in $ amounts and not chip amounts use the dollar_to_chips function if needed
     def place_bet(self, bet):
-        self.bet = bet
+        self.bet.transfer_chips(self.chips, bet)
 
     def evaluate_hand(self, community_cards: List[Card]):
         self.hand_eval = self.evaluator.evaluate_hand(self.hand + community_cards)

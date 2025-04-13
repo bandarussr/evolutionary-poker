@@ -158,6 +158,122 @@ class ChipStash(Chips):
             raise ValueError(f"Insufficient chips to convert ${value}. Remaining: ${remaining}")
 
         return bet_chips
-        
+
+    def copy(self):
+        """Creates a new ChipStash with the same chip inventory as this one"""
+        new_stash = ChipStash()
+        # Copy all chip counts to the new stash
+        for chip_value, count in self.inventory.items():
+            new_stash.inventory[chip_value] = count
+        return new_stash
+
     def __str__(self):
         return f"Chip Inventory: {self.inventory}, Total Value: {self.total_value()}"
+
+    def __sub__(self, other: "ChipStash") -> "ChipStash":
+        if not isinstance(other, ChipStash):
+            raise TypeError("Subtraction only supported between ChipStash objects.")
+
+        # Create a copy of our chips to work with
+        result = self.copy()
+        
+        # Check if we have enough total value
+        if result.total_value() < other.total_value():
+            raise ValueError(f"Cannot subtract ${other.total_value()} from ${result.total_value()}")
+            
+        # Process each chip denomination from the other stash
+        for chip_value, count in other.inventory.items():
+            if count == 0:
+                continue  # Skip if no chips of this value to subtract
+                
+            # If we don't have enough of this specific denomination
+            if result.inventory[chip_value] < count:
+                # Make change from higher denominations
+                result.trade_in(chip_value, count)
+                
+                # If we still don't have enough after making change
+                if result.inventory[chip_value] < count:
+                    raise ValueError(f"Cannot subtract {count} chips of value {chip_value}. Only {result.inventory[chip_value]} available after trade-in.")
+            
+            # Now subtract the chips
+            result.remove_chips(chip_value, count)
+            
+        return result
+
+    def __add__(self, other: "ChipStash") -> "ChipStash":
+        if not isinstance(other, ChipStash):
+            raise TypeError("Addition only supported between ChipStash objects.")
+
+        result = ChipStash(self.inventory.copy())
+        for chip_value, count in other.inventory.items():
+            result.inventory[chip_value] += count
+
+        return result
+
+    def __iadd__(self, other: "ChipStash") -> "ChipStash":
+        if not isinstance(other, ChipStash):
+            raise TypeError("In-place addition only supported between ChipStash objects.")
+
+        for chip_value, count in other.inventory.items():
+            self.inventory[chip_value] += count
+
+        return self
+
+    def __isub__(self, other: "ChipStash") -> "ChipStash":
+        if not isinstance(other, ChipStash):
+            raise TypeError("In-place subtraction only supported between ChipStash objects.")
+
+        chip_hierarchy = sorted(self.inventory.keys(), reverse=True)
+
+        for chip_value in chip_hierarchy:
+            need = other.inventory.get(chip_value, 0)
+            have = self.inventory.get(chip_value, 0)
+
+            if need > have:
+                self.trade_in(target_chip_value=chip_value, target_count=need)
+                have = self.inventory.get(chip_value, 0)
+
+            if need > have:
+                raise ValueError(f"Cannot subtract {need} chips of value {chip_value}. Only {have} available after trade-in.")
+
+            self.remove_chips(chip_value, need)
+
+        return self
+    
+    def difference_to(self, other: "ChipStash") -> "ChipStash":
+        """
+        Calculate the ChipStash needed to reach the value of 'other' from this stash.
+        
+        This is particularly useful for betting scenarios where we need to know what
+        additional chips a player needs to add to their bet to match a call amount.
+        
+        Args:
+            other: The target ChipStash to match
+            
+        Returns:
+            A new ChipStash containing the chips needed to match the target value
+        """
+        # Calculate the difference in total value
+        value_difference = other.total_value() - self.total_value()
+        
+        # If this stash is already higher value than the other, no additional chips needed
+        if value_difference <= 0:
+            return ChipStash()
+            
+        # Create a new stash to hold the optimal combination of chips for the difference
+        result = ChipStash()
+        
+        # Fill in chips from highest to lowest denomination
+        remaining = value_difference
+        for chip_value in sorted([Chips.Black, Chips.Blue, Chips.Green, Chips.Red, Chips.White], reverse=True):
+            # How many of this chip can we use
+            chip_count = remaining // chip_value
+            if chip_count > 0:
+                result.add_chips(chip_value, chip_count)
+                remaining -= chip_value * chip_count
+                
+            # If we've matched the value exactly, we're done
+            if remaining == 0:
+                break
+                
+        return result
