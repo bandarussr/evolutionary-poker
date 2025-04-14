@@ -36,6 +36,7 @@ class TexasHoldem:
         for p in self.players:
             if not p.folded:
                 p.evaluate_hand(self.community_cards)
+        self._display_community_cards()
         self._betting_round()
 
         # Turn
@@ -43,6 +44,7 @@ class TexasHoldem:
         for p in self.players:
             if not p.folded:
                 p.evaluate_hand(self.community_cards)
+        self._display_community_cards()
         self._betting_round()
 
         # River
@@ -50,6 +52,7 @@ class TexasHoldem:
         for p in self.players:
             if not p.folded:
                 p.evaluate_hand(self.community_cards)
+        self._display_community_cards()
         self._betting_round()
 
         # Showdown
@@ -98,6 +101,8 @@ class TexasHoldem:
         for _ in range(2):
             for player in self.players:
                 player.receive_card(self.deck.deal())
+        for player in self.players:
+            print(f"{player.name} hand: {player.hand[0]}  {player.hand[1]}")
 
     # Burns 1 card
     def _burn_card(self):
@@ -115,6 +120,9 @@ class TexasHoldem:
     def _deal_river(self):
         self._burn_card()
         self.community_cards.append(self.deck.deal())
+    
+    def _display_community_cards(self):
+        print("Community Cards:", " ".join(str(card) for card in self.community_cards))
 
     def _betting_round(self):
 
@@ -246,12 +254,24 @@ class TexasHoldem:
             return
 
         # Determine the best score
-        best_score = self.evaluator.evaluate_table(finalists)
-        winners = [p for p in finalists if p.hand_eval == best_score]
+        best_score = self.evaluator.evaluate_table(finalists, self.community_cards)
+        winners = [p for p in finalists if p.hand_eval == best_score[0]]
 
         print("\nShowdown Results:")
+        self._display_community_cards()
+
         for player in finalists:
-            print(f"{player.name}: {player.hand_eval}")
+            card_suit, card_val = player.hand_eval
+            print(f"{player.name}:")
+            print(f"   Hand: {player.hand[0]} {player.hand[1]}")
+            print(f"   Best hand: {card_suit}")
+            print(f"   ", " ".join(str(card) for card in card_val))
+        
+        for winner in winners:
+            card_suit, card_val = winner.hand_eval
+            print(f"{winner.name} has won the round!")
+            print(f"   Best hand: {card_suit}")
+            print(f"   Cards: ", " ".join(str(card) for card in card_val))
 
         # Distribute the main pot
         self._distribute_pot(self.main_pot, winners)
@@ -263,6 +283,7 @@ class TexasHoldem:
 
     
 
+    # TODO:: distributing the pot to winners is broken
     def _distribute_pot(self, pot: ChipStash, winners: List[Player]):
         if not winners or pot.total_value() == 0:
             return

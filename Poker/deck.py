@@ -33,31 +33,7 @@ class Rank(Enum):
         if self == Rank.KING:
             return "K"
         return "A"
-    
-    def __lt__(self, other):
-        if isinstance(other, Rank):
-            return self.value < other.value
-        return NotImplemented
-    
-    def __gt__(self, other):
-        if isinstance(other, Rank):
-            return self.value > other.value
-        return NotImplemented
-    
-    def __eq__(self, other):
-        if isinstance(other, Rank):
-            return self.value == other.value
-        return NotImplemented
-    
-    def __le__(self, other):
-        if isinstance(other, Rank):
-            return self.value <= other.value
-        return NotImplemented
-    
-    def __ge__(self, other):
-        if isinstance(other, Rank):
-            return self.value >= other.value
-        return NotImplemented
+
 
 class Card:
     def __init__(self, rank: Rank, suit: Suit):

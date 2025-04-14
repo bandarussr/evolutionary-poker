@@ -22,7 +22,7 @@ class Eval:
     
     def _rank_hand(self, hand) -> int:
         # Check royal flush
-        ranks = sorted([card.rank for card in hand])
+        ranks = sorted([card.rank.value for card in hand])
         suits = [card.suit for card in hand]
 
         is_same_suit = len(set(suits)) == 1
@@ -35,7 +35,15 @@ class Eval:
             return 9
         
         # Check four of a kind
-        rank_counts = {rank: ranks.count(rank) for rank in set(ranks)}
+        # ERROR::can't use sets
+        # rank_counts = {rank: ranks.count(rank) for rank in set(ranks)}
+        # Check four of a kind
+        rank_counts = {}
+        for rank in ranks:
+            if rank in rank_counts:
+                rank_counts[rank] += 1
+            else:
+                rank_counts[rank] = 1
         if 4 in rank_counts.values():
             return 8
         
@@ -66,14 +74,14 @@ class Eval:
         # High card
         return 1
     
-    def evaluate_table(self, players):
+    def evaluate_table(self, players, community_cards):
         # evaluate the hands of each player and give them a rank of who's winning
         # NOTE:: there can be multiple winners so need to differentiate for that
 
         table_ranks: List[Tuple[str, int]] = []
 
         for player in players:
-            player.evaluate_hand()
+            player.evaluate_hand(community_cards)
 
             table_ranks.append((player.name, player.hand_eval[0]))
 
