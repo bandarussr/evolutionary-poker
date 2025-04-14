@@ -38,11 +38,14 @@ class Player:
     
     # Function to reset the players info after each round
     def reset(self):
-        pass
+        self.hand = []
+        self.hand_eval = (None, None)
+        self.bet = ChipStash()
+        self.folded = False
 
     # Function to receive cards 
     def receive_card(self, card: Card):
-        pass
+        self.hand.append(card)
 
     # Logic for player decision
     # bet_size: the bet that the round is on
@@ -54,11 +57,28 @@ class Player:
             return Action.CALL, bet_size
         return Action.CHECK, 0
 
-    # TODO:: make a check to see if the player can even put down the bet based on their stash of chips
-    # NOTE:: even if they don't have enough of the same chip, they can always trade in chips to match if needed
+    # Allows player to place a bet
+    # Takes care of logic for needing to go all in if they have less than the amount they need to bet
+    # Takes care of logic for exchanging their chip for other chips to make exact amount
     # NOTE:: the bet is in $ amounts and not chip amounts use the dollar_to_chips function if needed
     def place_bet(self, bet):
-        self.bet.transfer_chips(self.chips, bet)
+        money_amnt = self.chips.total_value()
+        # Handles instance of player having less money than another put in
+        if(money_amnt >= bet.total_value()):
+            amnt_to_bet = bet.total_value()
+        else:
+            amnt_to_bet = money_amnt
+        
+        try:
+            chips_to_bet = self.chips.dollar_to_chips(amnt_to_bet)
+        except ValueError:
+            # Trade it in for the smallest amount of chips we have
+            self.chips.trade_in(Chips.White, 1)
+            chips_to_bet = self.chips.dollar_to_chips(amnt_to_bet)
+
+        self.bet += chips_to_bet
+        print(f"----{self.name} placed a bet of {self.bet}")
+
 
     def evaluate_hand(self, community_cards: List[Card]):
         self.hand_eval = self.evaluator.evaluate_hand(self.hand + community_cards)
