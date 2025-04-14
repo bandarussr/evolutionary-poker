@@ -60,7 +60,6 @@ class Player:
     # Allows player to place a bet
     # Takes care of logic for needing to go all in if they have less than the amount they need to bet
     # Takes care of logic for exchanging their chip for other chips to make exact amount
-    # NOTE:: the bet is in $ amounts and not chip amounts use the dollar_to_chips function if needed
     def place_bet(self, bet):
         money_amnt = self.chips.total_value()
         # Handles instance of player having less money than another put in
