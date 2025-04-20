@@ -74,15 +74,51 @@ class Eval:
         # High card
         return 1
     
-    def evaluate_table(self, players, community_cards):
-        # evaluate the hands of each player and give them a rank of who's winning
-        # NOTE:: there can be multiple winners so need to differentiate for that
+    # def evaluate_table(self, players, community_cards):
+    #     # evaluate the hands of each player and give them a rank of who's winning
+    #     # NOTE:: there can be multiple winners so need to differentiate for that
 
-        table_ranks: List[Tuple[str, int]] = []
+    #     table_ranks: List[Tuple[str, int]] = []
+
+    #     for player in players:
+    #         player.evaluate_hand(community_cards)
+
+    #         table_ranks.append((player.name, player.hand_eval[0]))
+
+    #     return table_ranks
+
+    def evaluate_table(self, players, community_cards):
+        """
+        Evaluate all players' hands and rank them.
+        Handles tie-breaking by evaluating full hand values.
+        Returns a sorted list of (player, hand_rank, hand_value), with ties considered.
+        """
+        ranked_players = []
 
         for player in players:
             player.evaluate_hand(community_cards)
+            rank, cards = player.hand_eval
 
-            table_ranks.append((player.name, player.hand_eval[0]))
+            # Convert hand cards to sorted list of rank values (high to low)
+            values = sorted([card.rank.value for card in cards], reverse=True)
+            ranked_players.append((player, rank, values))
 
-        return table_ranks
+        # Sort by hand rank first, then by kicker card values
+        ranked_players.sort(key=lambda x: (x[1], x[2]), reverse=True)
+
+        # Tie detection
+        results = []
+        i = 0
+        while i < len(ranked_players):
+            tied_group = [ranked_players[i]]
+            while (
+                i + 1 < len(ranked_players) and
+                ranked_players[i][1] == ranked_players[i + 1][1] and
+                ranked_players[i][2] == ranked_players[i + 1][2]
+            ):
+                tied_group.append(ranked_players[i + 1])
+                i += 1
+            results.append(tied_group if len(tied_group) > 1 else tied_group[0])
+            i += 1
+
+        return results

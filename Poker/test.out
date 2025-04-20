@@ -1,0 +1,2046 @@
+
+=== Testing Chip Consistency Over 10 Rounds ===
+Initial total chip value: $7600
+
+--- Round 1 ---
+
+Bob is the dealer
+
+Before: Chip Inventory: {50: 1, 100: 1, 250: 1, 500: 1, 1000: 1}, Total Value: 1900
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 0, 100: 1, 250: 1, 500: 1, 1000: 1}, Total Value: 1850
+
+----Charlie placed a bet of Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+
+Before: Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie posts small blind: $50
+
+Before: Chip Inventory: {50: 1, 100: 1, 250: 1, 500: 1, 1000: 1}, Total Value: 1900
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana posts big blind: $100
+Alice hand: 6♠  10♠
+Bob hand: 9♣  8♣
+Charlie hand: 9♥  K♥
+Diana hand: A♣  10♣
+Not here: [<player.Player object at 0x100cd6f90>, <player.Player object at 0x100cd7140>, <player.Player object at 0x100cd7200>, <player.Player object at 0x100cd72c0>]
+Alice chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 1, 100: 1, 250: 1, 500: 1, 1000: 1}, Total Value: 1900
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Bob chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 1, 100: 1, 250: 1, 500: 1, 1000: 1}, Total Value: 1900
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Charlie chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 1, 500: 1, 1000: 1}, Total Value: 1850
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1750
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Diana chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+Requesting to trade in: 100 for 1
+Traded in 1 Black chip(s) to get 10 Red chip(s)!
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Request of $0 successful!
+After: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+
+Alice bet a total of $100 this round!: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+Bob bet a total of $100 this round!: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+Charlie bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1750
+Diana bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+
+
+Alice has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Bob has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Main pot: $450
+Alice: $1800
+Alice betted: $0
+Bob: $1800
+Bob betted: $0
+Charlie: $1750
+Charlie betted: $0
+Diana: $1800
+Diana betted: $0
+Community Cards: 8♠ 10♥ A♠
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+Bob bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1750
+Diana bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+
+
+Alice: $1800
+Alice betted: $0
+Bob: $1800
+Bob betted: $0
+Charlie: $1750
+Charlie betted: $0
+Diana: $1800
+Diana betted: $0
+Community Cards: 8♠ 10♥ A♠ 5♣
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+Bob bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1750
+Diana bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+
+
+Community Cards: 8♠ 10♥ A♠ 5♣ 7♥
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+Bob bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1750
+Diana bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+
+
+
+Showdown Results:
+Community Cards: 8♠ 10♥ A♠ 5♣ 7♥
+Alice:
+   Hand: 6♠ 10♠
+   Best hand: 2
+    6♠ 10♠ 8♠ 10♥ A♠
+Bob:
+   Hand: 9♣ 8♣
+   Best hand: 2
+    9♣ 8♣ 8♠ 10♥ A♠
+Charlie:
+   Hand: 9♥ K♥
+   Best hand: 1
+    9♥ K♥ 8♠ 10♥ A♠
+Diana:
+   Hand: A♣ 10♣
+   Best hand: 3
+    A♣ 10♣ 8♠ 10♥ A♠
+Diana has won the round!
+   Best hand: 3
+   Cards:  A♣ 10♣ 8♠ 10♥ A♠
+Main pot: 450
+WARNING: Total chip value changed to $7150!
+
+--- Round 2 ---
+
+Charlie is the dealer
+
+Before: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 0, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1750
+
+----Diana placed a bet of Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+
+Before: Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana posts small blind: $50
+
+Before: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+Requesting to trade in: 100 for 1
+Traded in 1 Black chip(s) to get 10 Red chip(s)!
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Request of $0 successful!
+After: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Before: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Request of $0 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Alice posts big blind: $100
+Alice hand: K♠  7♣
+Bob hand: 3♥  4♣
+Charlie hand: 8♠  3♦
+Diana hand: 8♣  10♥
+Not here: [<player.Player object at 0x100cd7140>, <player.Player object at 0x100cd7200>, <player.Player object at 0x100cd72c0>, <player.Player object at 0x100cd6f90>]
+Bob chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 1, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1800
+Requesting to trade in: 100 for 1
+Traded in 1 Black chip(s) to get 10 Red chip(s)!
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Request of $0 successful!
+After: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Charlie chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 0, 250: 1, 500: 1, 1000: 1}, Total Value: 1750
+Requesting to trade in: 100 for 1
+Traded in 1 Black chip(s) to get 10 Red chip(s)!
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Request of $0 successful!
+After: Chip Inventory: {50: 0, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1750
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Diana chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1750
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Alice chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Alice bet a total of $100 this round!: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+Bob bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1750
+Diana bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+
+
+Alice has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Main pot: $250
+Alice: $1700
+Alice betted: $0
+Bob: $1800
+Bob betted: $0
+Charlie: $1750
+Charlie betted: $0
+Diana: $1650
+Diana betted: $0
+Community Cards: 3♠ 10♠ 3♣
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+Bob bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1750
+Diana bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+
+
+Alice: $1700
+Alice betted: $0
+Bob: $1800
+Bob betted: $0
+Charlie: $1750
+Charlie betted: $0
+Diana: $1650
+Diana betted: $0
+Community Cards: 3♠ 10♠ 3♣ Q♠
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+Bob bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1750
+Diana bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+
+
+Community Cards: 3♠ 10♠ 3♣ Q♠ 9♦
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+Bob bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1750
+Diana bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+
+
+
+Showdown Results:
+Community Cards: 3♠ 10♠ 3♣ Q♠ 9♦
+Alice:
+   Hand: K♠ 7♣
+   Best hand: 2
+    K♠ 7♣ 3♠ 10♠ 3♣
+Bob:
+   Hand: 3♥ 4♣
+   Best hand: 4
+    3♥ 4♣ 3♠ 10♠ 3♣
+Charlie:
+   Hand: 8♠ 3♦
+   Best hand: 4
+    8♠ 3♦ 3♠ 10♠ 3♣
+Diana:
+   Hand: 8♣ 10♥
+   Best hand: 3
+    8♣ 10♥ 3♠ 10♠ 3♣
+Charlie has won the round!
+   Best hand: 4
+   Cards:  8♠ 3♦ 3♠ 10♠ 3♣
+Main pot: 250
+Distributing pot of $250 among 1 winners
+Each winner gets $250, with $0 remainder
+Charlie receives $250
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+WARNING: Total chip value changed to $7150!
+
+--- Round 3 ---
+
+Diana is the dealer
+
+Before: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+
+----Alice placed a bet of Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+
+Before: Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Alice posts small blind: $50
+
+Before: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Bob posts big blind: $100
+Alice hand: A♠  10♣
+Bob hand: 8♣  9♠
+Charlie hand: J♦  Q♦
+Diana hand: 5♥  8♠
+Not here: [<player.Player object at 0x100cd7200>, <player.Player object at 0x100cd72c0>, <player.Player object at 0x100cd6f90>, <player.Player object at 0x100cd7140>]
+Charlie chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 1, 100: 12, 250: 1, 500: 1, 1000: 0}, Total Value: 2000
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 1, 100: 11, 250: 1, 500: 1, 1000: 0}, Total Value: 1900
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Diana chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Alice chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Bob chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 1, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1600
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Alice bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+Bob bet a total of $100 this round!: Chip Inventory: {50: 1, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1600
+Charlie bet a total of $100 this round!: Chip Inventory: {50: 1, 100: 11, 250: 1, 500: 1, 1000: 0}, Total Value: 1900
+Diana bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+
+
+Alice has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Bob has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Main pot: $550
+Alice: $1550
+Alice betted: $0
+Bob: $1600
+Bob betted: $0
+Charlie: $1900
+Charlie betted: $0
+Diana: $1550
+Diana betted: $0
+Community Cards: 8♦ 5♣ K♥
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+Bob bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1600
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 11, 250: 1, 500: 1, 1000: 0}, Total Value: 1900
+Diana bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+
+
+Alice: $1550
+Alice betted: $0
+Bob: $1600
+Bob betted: $0
+Charlie: $1900
+Charlie betted: $0
+Diana: $1550
+Diana betted: $0
+Community Cards: 8♦ 5♣ K♥ 10♦
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+Bob bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1600
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 11, 250: 1, 500: 1, 1000: 0}, Total Value: 1900
+Diana bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+
+
+Community Cards: 8♦ 5♣ K♥ 10♦ 6♠
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+Bob bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1600
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 11, 250: 1, 500: 1, 1000: 0}, Total Value: 1900
+Diana bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+
+
+
+Showdown Results:
+Community Cards: 8♦ 5♣ K♥ 10♦ 6♠
+Alice:
+   Hand: A♠ 10♣
+   Best hand: 2
+    A♠ 10♣ 8♦ 5♣ 10♦
+Bob:
+   Hand: 8♣ 9♠
+   Best hand: 2
+    8♣ 9♠ 8♦ 5♣ K♥
+Charlie:
+   Hand: J♦ Q♦
+   Best hand: 1
+    J♦ Q♦ 8♦ 5♣ K♥
+Diana:
+   Hand: 5♥ 8♠
+   Best hand: 3
+    5♥ 8♠ 8♦ 5♣ K♥
+Diana has won the round!
+   Best hand: 3
+   Cards:  5♥ 8♠ 8♦ 5♣ K♥
+Main pot: 550
+Distributing pot of $550 among 1 winners
+Each winner gets $550, with $0 remainder
+Diana receives $550
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+WARNING: Total chip value changed to $7150!
+
+--- Round 4 ---
+
+Alice is the dealer
+
+Before: Chip Inventory: {50: 1, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1600
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+
+----Bob placed a bet of Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+
+Before: Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Bob posts small blind: $50
+
+Before: Chip Inventory: {50: 1, 100: 11, 250: 1, 500: 1, 1000: 0}, Total Value: 1900
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie posts big blind: $100
+Alice hand: Q♠  A♦
+Bob hand: 7♥  J♣
+Charlie hand: 9♠  3♦
+Diana hand: 8♦  Q♣
+Not here: [<player.Player object at 0x100cd72c0>, <player.Player object at 0x100cd6f90>, <player.Player object at 0x100cd7140>, <player.Player object at 0x100cd7200>]
+Diana chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 1, 100: 13, 250: 1, 500: 1, 1000: 0}, Total Value: 2100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 1, 100: 12, 250: 1, 500: 1, 1000: 0}, Total Value: 2000
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Alice chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Bob chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Charlie chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 1, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1800
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Alice bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Bob bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Charlie bet a total of $100 this round!: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+Diana bet a total of $100 this round!: Chip Inventory: {50: 1, 100: 12, 250: 1, 500: 1, 1000: 0}, Total Value: 2000
+
+
+Alice has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Bob has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Main pot: $550
+Alice: $1450
+Alice betted: $0
+Bob: $1450
+Bob betted: $0
+Charlie: $1700
+Charlie betted: $0
+Diana: $2000
+Diana betted: $0
+Community Cards: 2♦ 9♣ 10♠
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Bob bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+Diana bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 12, 250: 1, 500: 1, 1000: 0}, Total Value: 2000
+
+
+Alice: $1450
+Alice betted: $0
+Bob: $1450
+Bob betted: $0
+Charlie: $1700
+Charlie betted: $0
+Diana: $2000
+Diana betted: $0
+Community Cards: 2♦ 9♣ 10♠ 2♣
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Bob bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+Diana bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 12, 250: 1, 500: 1, 1000: 0}, Total Value: 2000
+
+
+Community Cards: 2♦ 9♣ 10♠ 2♣ J♠
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Bob bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+Diana bet a total of $0 this round!: Chip Inventory: {50: 1, 100: 12, 250: 1, 500: 1, 1000: 0}, Total Value: 2000
+
+
+
+Showdown Results:
+Community Cards: 2♦ 9♣ 10♠ 2♣ J♠
+Alice:
+   Hand: Q♠ A♦
+   Best hand: 2
+    Q♠ A♦ 2♦ 9♣ 2♣
+Bob:
+   Hand: 7♥ J♣
+   Best hand: 3
+    7♥ J♣ 2♦ 2♣ J♠
+Charlie:
+   Hand: 9♠ 3♦
+   Best hand: 3
+    9♠ 3♦ 2♦ 9♣ 2♣
+Diana:
+   Hand: 8♦ Q♣
+   Best hand: 5
+    8♦ Q♣ 9♣ 10♠ J♠
+Diana has won the round!
+   Best hand: 5
+   Cards:  8♦ Q♣ 9♣ 10♠ J♠
+Main pot: 550
+Distributing pot of $550 among 1 winners
+Each winner gets $550, with $0 remainder
+Diana receives $550
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+WARNING: Total chip value changed to $7150!
+
+--- Round 5 ---
+
+Bob is the dealer
+
+Before: Chip Inventory: {50: 1, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1700
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+
+----Charlie placed a bet of Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+
+Before: Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie posts small blind: $50
+
+Before: Chip Inventory: {50: 2, 100: 17, 250: 1, 500: 1, 1000: 0}, Total Value: 2550
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 2, 100: 16, 250: 1, 500: 1, 1000: 0}, Total Value: 2450
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana posts big blind: $100
+Alice hand: Q♦  4♦
+Bob hand: A♠  9♠
+Charlie hand: 9♥  8♦
+Diana hand: 6♠  6♥
+Not here: [<player.Player object at 0x100cd6f90>, <player.Player object at 0x100cd7140>, <player.Player object at 0x100cd7200>, <player.Player object at 0x100cd72c0>]
+Alice chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Bob chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Charlie chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Diana chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 2, 100: 16, 250: 1, 500: 1, 1000: 0}, Total Value: 2450
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 2, 100: 15, 250: 1, 500: 1, 1000: 0}, Total Value: 2350
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Alice bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Bob bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Charlie bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+Diana bet a total of $100 this round!: Chip Inventory: {50: 2, 100: 15, 250: 1, 500: 1, 1000: 0}, Total Value: 2350
+
+
+Alice has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Bob has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Main pot: $550
+Alice: $1350
+Alice betted: $0
+Bob: $1350
+Bob betted: $0
+Charlie: $1550
+Charlie betted: $0
+Diana: $2350
+Diana betted: $0
+Community Cards: 7♥ 3♦ 5♥
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Bob bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+Diana bet a total of $0 this round!: Chip Inventory: {50: 2, 100: 15, 250: 1, 500: 1, 1000: 0}, Total Value: 2350
+
+
+Alice: $1350
+Alice betted: $0
+Bob: $1350
+Bob betted: $0
+Charlie: $1550
+Charlie betted: $0
+Diana: $2350
+Diana betted: $0
+Community Cards: 7♥ 3♦ 5♥ 5♣
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Bob bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+Diana bet a total of $0 this round!: Chip Inventory: {50: 2, 100: 15, 250: 1, 500: 1, 1000: 0}, Total Value: 2350
+
+
+Community Cards: 7♥ 3♦ 5♥ 5♣ 6♣
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Bob bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+Diana bet a total of $0 this round!: Chip Inventory: {50: 2, 100: 15, 250: 1, 500: 1, 1000: 0}, Total Value: 2350
+
+
+
+Showdown Results:
+Community Cards: 7♥ 3♦ 5♥ 5♣ 6♣
+Alice:
+   Hand: Q♦ 4♦
+   Best hand: 5
+    4♦ 7♥ 3♦ 5♥ 6♣
+Bob:
+   Hand: A♠ 9♠
+   Best hand: 2
+    A♠ 9♠ 7♥ 5♥ 5♣
+Charlie:
+   Hand: 9♥ 8♦
+   Best hand: 5
+    9♥ 8♦ 7♥ 5♥ 6♣
+Diana:
+   Hand: 6♠ 6♥
+   Best hand: 7
+    6♠ 6♥ 5♥ 5♣ 6♣
+Diana has won the round!
+   Best hand: 7
+   Cards:  6♠ 6♥ 5♥ 5♣ 6♣
+Main pot: 550
+Distributing pot of $550 among 1 winners
+Each winner gets $550, with $0 remainder
+Diana receives $550
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+WARNING: Total chip value changed to $7150!
+
+--- Round 6 ---
+
+Charlie is the dealer
+
+Before: Chip Inventory: {50: 3, 100: 20, 250: 1, 500: 1, 1000: 0}, Total Value: 2900
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 2, 100: 20, 250: 1, 500: 1, 1000: 0}, Total Value: 2850
+
+----Diana placed a bet of Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+
+Before: Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana posts small blind: $50
+
+Before: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 5, 250: 1, 500: 1, 1000: 0}, Total Value: 1250
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Alice posts big blind: $100
+Alice hand: A♣  2♣
+Bob hand: 2♦  9♦
+Charlie hand: 7♠  6♣
+Diana hand: 6♥  4♥
+Not here: [<player.Player object at 0x100cd7140>, <player.Player object at 0x100cd7200>, <player.Player object at 0x100cd72c0>, <player.Player object at 0x100cd6f90>]
+Bob chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 5, 250: 1, 500: 1, 1000: 0}, Total Value: 1250
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Charlie chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 8, 250: 1, 500: 1, 1000: 0}, Total Value: 1550
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Diana chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 2, 100: 20, 250: 1, 500: 1, 1000: 0}, Total Value: 2850
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 2, 100: 19, 250: 1, 500: 1, 1000: 0}, Total Value: 2750
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Alice chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 5, 250: 1, 500: 1, 1000: 0}, Total Value: 1250
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 4, 250: 1, 500: 1, 1000: 0}, Total Value: 1150
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Alice bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 4, 250: 1, 500: 1, 1000: 0}, Total Value: 1150
+Bob bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 5, 250: 1, 500: 1, 1000: 0}, Total Value: 1250
+Charlie bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Diana bet a total of $100 this round!: Chip Inventory: {50: 2, 100: 19, 250: 1, 500: 1, 1000: 0}, Total Value: 2750
+
+
+Alice has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Bob has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Main pot: $550
+Alice: $1150
+Alice betted: $0
+Bob: $1250
+Bob betted: $0
+Charlie: $1450
+Charlie betted: $0
+Diana: $2750
+Diana betted: $0
+Community Cards: 7♥ 4♣ 3♦
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 4, 250: 1, 500: 1, 1000: 0}, Total Value: 1150
+Bob bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 5, 250: 1, 500: 1, 1000: 0}, Total Value: 1250
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Diana bet a total of $0 this round!: Chip Inventory: {50: 2, 100: 19, 250: 1, 500: 1, 1000: 0}, Total Value: 2750
+
+
+Alice: $1150
+Alice betted: $0
+Bob: $1250
+Bob betted: $0
+Charlie: $1450
+Charlie betted: $0
+Diana: $2750
+Diana betted: $0
+Community Cards: 7♥ 4♣ 3♦ 3♥
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 4, 250: 1, 500: 1, 1000: 0}, Total Value: 1150
+Bob bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 5, 250: 1, 500: 1, 1000: 0}, Total Value: 1250
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Diana bet a total of $0 this round!: Chip Inventory: {50: 2, 100: 19, 250: 1, 500: 1, 1000: 0}, Total Value: 2750
+
+
+Community Cards: 7♥ 4♣ 3♦ 3♥ J♥
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 4, 250: 1, 500: 1, 1000: 0}, Total Value: 1150
+Bob bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 5, 250: 1, 500: 1, 1000: 0}, Total Value: 1250
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Diana bet a total of $0 this round!: Chip Inventory: {50: 2, 100: 19, 250: 1, 500: 1, 1000: 0}, Total Value: 2750
+
+
+
+Showdown Results:
+Community Cards: 7♥ 4♣ 3♦ 3♥ J♥
+Alice:
+   Hand: A♣ 2♣
+   Best hand: 2
+    A♣ 2♣ 7♥ 3♦ 3♥
+Bob:
+   Hand: 2♦ 9♦
+   Best hand: 2
+    2♦ 9♦ 7♥ 3♦ 3♥
+Charlie:
+   Hand: 7♠ 6♣
+   Best hand: 3
+    7♠ 6♣ 7♥ 3♦ 3♥
+Diana:
+   Hand: 6♥ 4♥
+   Best hand: 6
+    6♥ 4♥ 7♥ 3♥ J♥
+Diana has won the round!
+   Best hand: 6
+   Cards:  6♥ 4♥ 7♥ 3♥ J♥
+Main pot: 550
+Distributing pot of $550 among 1 winners
+Each winner gets $550, with $0 remainder
+Diana receives $550
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+WARNING: Total chip value changed to $7150!
+
+--- Round 7 ---
+
+Diana is the dealer
+
+Before: Chip Inventory: {50: 0, 100: 4, 250: 1, 500: 1, 1000: 0}, Total Value: 1150
+Requesting to trade in: 50 for 1
+Traded in 1 Blue chip(s) to get 10 White chip(s)!
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Request of $0 successful!
+After: Chip Inventory: {50: 10, 100: 4, 250: 1, 500: 0, 1000: 0}, Total Value: 1150
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Before: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Request of $0 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Alice posts small blind: $50
+
+Before: Chip Inventory: {50: 0, 100: 5, 250: 1, 500: 1, 1000: 0}, Total Value: 1250
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 4, 250: 1, 500: 1, 1000: 0}, Total Value: 1150
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Bob posts big blind: $100
+Alice hand: 9♥  5♠
+Bob hand: 9♠  2♠
+Charlie hand: 8♦  Q♥
+Diana hand: 6♦  J♣
+Not here: [<player.Player object at 0x100cd7200>, <player.Player object at 0x100cd72c0>, <player.Player object at 0x100cd6f90>, <player.Player object at 0x100cd7140>]
+Charlie chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 7, 250: 1, 500: 1, 1000: 0}, Total Value: 1450
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Diana chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 3, 100: 24, 250: 1, 500: 1, 1000: 0}, Total Value: 3300
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 3, 100: 23, 250: 1, 500: 1, 1000: 0}, Total Value: 3200
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Alice chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 10, 100: 4, 250: 1, 500: 0, 1000: 0}, Total Value: 1150
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 10, 100: 3, 250: 1, 500: 0, 1000: 0}, Total Value: 1050
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Bob chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 4, 250: 1, 500: 1, 1000: 0}, Total Value: 1150
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 3, 250: 1, 500: 1, 1000: 0}, Total Value: 1050
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Alice bet a total of $100 this round!: Chip Inventory: {50: 10, 100: 3, 250: 1, 500: 0, 1000: 0}, Total Value: 1050
+Bob bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 3, 250: 1, 500: 1, 1000: 0}, Total Value: 1050
+Charlie bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Diana bet a total of $100 this round!: Chip Inventory: {50: 3, 100: 23, 250: 1, 500: 1, 1000: 0}, Total Value: 3200
+
+
+Alice has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Bob has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Main pot: $500
+Alice: $1050
+Alice betted: $0
+Bob: $1050
+Bob betted: $0
+Charlie: $1350
+Charlie betted: $0
+Diana: $3200
+Diana betted: $0
+Community Cards: K♦ J♥ Q♣
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 3, 250: 1, 500: 0, 1000: 0}, Total Value: 1050
+Bob bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 3, 250: 1, 500: 1, 1000: 0}, Total Value: 1050
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Diana bet a total of $0 this round!: Chip Inventory: {50: 3, 100: 23, 250: 1, 500: 1, 1000: 0}, Total Value: 3200
+
+
+Alice: $1050
+Alice betted: $0
+Bob: $1050
+Bob betted: $0
+Charlie: $1350
+Charlie betted: $0
+Diana: $3200
+Diana betted: $0
+Community Cards: K♦ J♥ Q♣ 8♠
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 3, 250: 1, 500: 0, 1000: 0}, Total Value: 1050
+Bob bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 3, 250: 1, 500: 1, 1000: 0}, Total Value: 1050
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Diana bet a total of $0 this round!: Chip Inventory: {50: 3, 100: 23, 250: 1, 500: 1, 1000: 0}, Total Value: 3200
+
+
+Community Cards: K♦ J♥ Q♣ 8♠ Q♦
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 3, 250: 1, 500: 0, 1000: 0}, Total Value: 1050
+Bob bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 3, 250: 1, 500: 1, 1000: 0}, Total Value: 1050
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 6, 250: 1, 500: 1, 1000: 0}, Total Value: 1350
+Diana bet a total of $0 this round!: Chip Inventory: {50: 3, 100: 23, 250: 1, 500: 1, 1000: 0}, Total Value: 3200
+
+
+
+Showdown Results:
+Community Cards: K♦ J♥ Q♣ 8♠ Q♦
+Alice:
+   Hand: 9♥ 5♠
+   Best hand: 2
+    9♥ 5♠ K♦ Q♣ Q♦
+Bob:
+   Hand: 9♠ 2♠
+   Best hand: 2
+    9♠ 2♠ K♦ Q♣ Q♦
+Charlie:
+   Hand: 8♦ Q♥
+   Best hand: 7
+    8♦ Q♥ Q♣ 8♠ Q♦
+Diana:
+   Hand: 6♦ J♣
+   Best hand: 3
+    6♦ J♣ J♥ Q♣ Q♦
+Charlie has won the round!
+   Best hand: 7
+   Cards:  8♦ Q♥ Q♣ 8♠ Q♦
+Main pot: 500
+Distributing pot of $500 among 1 winners
+Each winner gets $500, with $0 remainder
+Charlie receives $500
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+WARNING: Total chip value changed to $7150!
+
+--- Round 8 ---
+
+Alice is the dealer
+
+Before: Chip Inventory: {50: 0, 100: 3, 250: 1, 500: 1, 1000: 0}, Total Value: 1050
+Requesting to trade in: 50 for 1
+Traded in 1 Blue chip(s) to get 10 White chip(s)!
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Request of $0 successful!
+After: Chip Inventory: {50: 10, 100: 3, 250: 1, 500: 0, 1000: 0}, Total Value: 1050
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Before: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Request of $0 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Bob posts small blind: $50
+
+Before: Chip Inventory: {50: 0, 100: 11, 250: 1, 500: 1, 1000: 0}, Total Value: 1850
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1750
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie posts big blind: $100
+Alice hand: 4♥  Q♦
+Bob hand: 7♥  4♣
+Charlie hand: 4♠  Q♠
+Diana hand: Q♣  A♦
+Not here: [<player.Player object at 0x100cd72c0>, <player.Player object at 0x100cd6f90>, <player.Player object at 0x100cd7140>, <player.Player object at 0x100cd7200>]
+Diana chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 3, 100: 23, 250: 1, 500: 1, 1000: 0}, Total Value: 3200
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 3, 100: 22, 250: 1, 500: 1, 1000: 0}, Total Value: 3100
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Alice chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 10, 100: 3, 250: 1, 500: 0, 1000: 0}, Total Value: 1050
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 10, 100: 2, 250: 1, 500: 0, 1000: 0}, Total Value: 950
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Bob chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 10, 100: 3, 250: 1, 500: 0, 1000: 0}, Total Value: 1050
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 10, 100: 2, 250: 1, 500: 0, 1000: 0}, Total Value: 950
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Charlie chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 0, 100: 10, 250: 1, 500: 1, 1000: 0}, Total Value: 1750
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Alice bet a total of $100 this round!: Chip Inventory: {50: 10, 100: 2, 250: 1, 500: 0, 1000: 0}, Total Value: 950
+Bob bet a total of $100 this round!: Chip Inventory: {50: 10, 100: 2, 250: 1, 500: 0, 1000: 0}, Total Value: 950
+Charlie bet a total of $100 this round!: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+Diana bet a total of $100 this round!: Chip Inventory: {50: 3, 100: 22, 250: 1, 500: 1, 1000: 0}, Total Value: 3100
+
+
+Alice has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Bob has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Main pot: $500
+Alice: $950
+Alice betted: $0
+Bob: $950
+Bob betted: $0
+Charlie: $1650
+Charlie betted: $0
+Diana: $3100
+Diana betted: $0
+Community Cards: 10♣ 6♣ J♦
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 2, 250: 1, 500: 0, 1000: 0}, Total Value: 950
+Bob bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 2, 250: 1, 500: 0, 1000: 0}, Total Value: 950
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+Diana bet a total of $0 this round!: Chip Inventory: {50: 3, 100: 22, 250: 1, 500: 1, 1000: 0}, Total Value: 3100
+
+
+Alice: $950
+Alice betted: $0
+Bob: $950
+Bob betted: $0
+Charlie: $1650
+Charlie betted: $0
+Diana: $3100
+Diana betted: $0
+Community Cards: 10♣ 6♣ J♦ J♣
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 2, 250: 1, 500: 0, 1000: 0}, Total Value: 950
+Bob bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 2, 250: 1, 500: 0, 1000: 0}, Total Value: 950
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+Diana bet a total of $0 this round!: Chip Inventory: {50: 3, 100: 22, 250: 1, 500: 1, 1000: 0}, Total Value: 3100
+
+
+Community Cards: 10♣ 6♣ J♦ J♣ 9♣
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 2, 250: 1, 500: 0, 1000: 0}, Total Value: 950
+Bob bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 2, 250: 1, 500: 0, 1000: 0}, Total Value: 950
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+Diana bet a total of $0 this round!: Chip Inventory: {50: 3, 100: 22, 250: 1, 500: 1, 1000: 0}, Total Value: 3100
+
+
+
+Showdown Results:
+Community Cards: 10♣ 6♣ J♦ J♣ 9♣
+Alice:
+   Hand: 4♥ Q♦
+   Best hand: 2
+    4♥ Q♦ 10♣ J♦ J♣
+Bob:
+   Hand: 7♥ 4♣
+   Best hand: 6
+    4♣ 10♣ 6♣ J♣ 9♣
+Charlie:
+   Hand: 4♠ Q♠
+   Best hand: 2
+    4♠ Q♠ 10♣ J♦ J♣
+Diana:
+   Hand: Q♣ A♦
+   Best hand: 6
+    Q♣ 10♣ 6♣ J♣ 9♣
+Diana has won the round!
+   Best hand: 6
+   Cards:  Q♣ 10♣ 6♣ J♣ 9♣
+Main pot: 500
+Distributing pot of $500 among 1 winners
+Each winner gets $500, with $0 remainder
+Diana receives $500
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+WARNING: Total chip value changed to $7150!
+
+--- Round 9 ---
+
+Bob is the dealer
+
+Before: Chip Inventory: {50: 0, 100: 9, 250: 1, 500: 1, 1000: 0}, Total Value: 1650
+Requesting to trade in: 50 for 1
+Traded in 1 Blue chip(s) to get 10 White chip(s)!
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Request of $0 successful!
+After: Chip Inventory: {50: 10, 100: 9, 250: 1, 500: 0, 1000: 0}, Total Value: 1650
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Before: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Request of $0 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie posts small blind: $50
+
+Before: Chip Inventory: {50: 3, 100: 27, 250: 1, 500: 1, 1000: 0}, Total Value: 3600
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 3, 100: 26, 250: 1, 500: 1, 1000: 0}, Total Value: 3500
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana posts big blind: $100
+Alice hand: 6♠  A♦
+Bob hand: 7♣  K♣
+Charlie hand: 6♣  K♥
+Diana hand: A♣  5♦
+Not here: [<player.Player object at 0x100cd6f90>, <player.Player object at 0x100cd7140>, <player.Player object at 0x100cd7200>, <player.Player object at 0x100cd72c0>]
+Alice chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 10, 100: 2, 250: 1, 500: 0, 1000: 0}, Total Value: 950
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 10, 100: 1, 250: 1, 500: 0, 1000: 0}, Total Value: 850
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Bob chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 10, 100: 2, 250: 1, 500: 0, 1000: 0}, Total Value: 950
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 10, 100: 1, 250: 1, 500: 0, 1000: 0}, Total Value: 850
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Charlie chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 10, 100: 9, 250: 1, 500: 0, 1000: 0}, Total Value: 1650
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 10, 100: 8, 250: 1, 500: 0, 1000: 0}, Total Value: 1550
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Diana chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 3, 100: 26, 250: 1, 500: 1, 1000: 0}, Total Value: 3500
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 3, 100: 25, 250: 1, 500: 1, 1000: 0}, Total Value: 3400
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Alice bet a total of $100 this round!: Chip Inventory: {50: 10, 100: 1, 250: 1, 500: 0, 1000: 0}, Total Value: 850
+Bob bet a total of $100 this round!: Chip Inventory: {50: 10, 100: 1, 250: 1, 500: 0, 1000: 0}, Total Value: 850
+Charlie bet a total of $100 this round!: Chip Inventory: {50: 10, 100: 8, 250: 1, 500: 0, 1000: 0}, Total Value: 1550
+Diana bet a total of $100 this round!: Chip Inventory: {50: 3, 100: 25, 250: 1, 500: 1, 1000: 0}, Total Value: 3400
+
+
+Alice has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Bob has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Main pot: $500
+Alice: $850
+Alice betted: $0
+Bob: $850
+Bob betted: $0
+Charlie: $1550
+Charlie betted: $0
+Diana: $3400
+Diana betted: $0
+Community Cards: 4♣ 5♥ 7♦
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 1, 250: 1, 500: 0, 1000: 0}, Total Value: 850
+Bob bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 1, 250: 1, 500: 0, 1000: 0}, Total Value: 850
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 8, 250: 1, 500: 0, 1000: 0}, Total Value: 1550
+Diana bet a total of $0 this round!: Chip Inventory: {50: 3, 100: 25, 250: 1, 500: 1, 1000: 0}, Total Value: 3400
+
+
+Alice: $850
+Alice betted: $0
+Bob: $850
+Bob betted: $0
+Charlie: $1550
+Charlie betted: $0
+Diana: $3400
+Diana betted: $0
+Community Cards: 4♣ 5♥ 7♦ 9♠
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 1, 250: 1, 500: 0, 1000: 0}, Total Value: 850
+Bob bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 1, 250: 1, 500: 0, 1000: 0}, Total Value: 850
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 8, 250: 1, 500: 0, 1000: 0}, Total Value: 1550
+Diana bet a total of $0 this round!: Chip Inventory: {50: 3, 100: 25, 250: 1, 500: 1, 1000: 0}, Total Value: 3400
+
+
+Community Cards: 4♣ 5♥ 7♦ 9♠ 7♥
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 1, 250: 1, 500: 0, 1000: 0}, Total Value: 850
+Bob bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 1, 250: 1, 500: 0, 1000: 0}, Total Value: 850
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 8, 250: 1, 500: 0, 1000: 0}, Total Value: 1550
+Diana bet a total of $0 this round!: Chip Inventory: {50: 3, 100: 25, 250: 1, 500: 1, 1000: 0}, Total Value: 3400
+
+
+
+Showdown Results:
+Community Cards: 4♣ 5♥ 7♦ 9♠ 7♥
+Alice:
+   Hand: 6♠ A♦
+   Best hand: 2
+    6♠ A♦ 4♣ 7♦ 7♥
+Bob:
+   Hand: 7♣ K♣
+   Best hand: 4
+    7♣ K♣ 4♣ 7♦ 7♥
+Charlie:
+   Hand: 6♣ K♥
+   Best hand: 2
+    6♣ K♥ 4♣ 7♦ 7♥
+Diana:
+   Hand: A♣ 5♦
+   Best hand: 3
+    A♣ 5♦ 5♥ 7♦ 7♥
+Bob has won the round!
+   Best hand: 4
+   Cards:  7♣ K♣ 4♣ 7♦ 7♥
+Main pot: 500
+Distributing pot of $500 among 1 winners
+Each winner gets $500, with $0 remainder
+Bob receives $500
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+WARNING: Total chip value changed to $7150!
+
+--- Round 10 ---
+
+Charlie is the dealer
+
+Before: Chip Inventory: {50: 3, 100: 25, 250: 1, 500: 1, 1000: 0}, Total Value: 3400
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 2, 100: 25, 250: 1, 500: 1, 1000: 0}, Total Value: 3350
+
+----Diana placed a bet of Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+
+Before: Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Chip Inventory: {50: 1, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 50
+Request of $50 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana posts small blind: $50
+
+Before: Chip Inventory: {50: 10, 100: 1, 250: 1, 500: 0, 1000: 0}, Total Value: 850
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 10, 100: 0, 250: 1, 500: 0, 1000: 0}, Total Value: 750
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Alice posts big blind: $100
+Alice hand: J♣  A♣
+Bob hand: 4♦  10♣
+Charlie hand: 3♥  A♥
+Diana hand: 9♦  Q♥
+Not here: [<player.Player object at 0x100cd7140>, <player.Player object at 0x100cd7200>, <player.Player object at 0x100cd72c0>, <player.Player object at 0x100cd6f90>]
+Bob chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 10, 100: 6, 250: 1, 500: 0, 1000: 0}, Total Value: 1350
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 10, 100: 5, 250: 1, 500: 0, 1000: 0}, Total Value: 1250
+
+----Bob placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Charlie chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 10, 100: 8, 250: 1, 500: 0, 1000: 0}, Total Value: 1550
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 10, 100: 7, 250: 1, 500: 0, 1000: 0}, Total Value: 1450
+
+----Charlie placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Diana chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 2, 100: 25, 250: 1, 500: 1, 1000: 0}, Total Value: 3350
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 2, 100: 24, 250: 1, 500: 1, 1000: 0}, Total Value: 3250
+
+----Diana placed a bet of Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Alice chooses to CALL with amount $Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Current bet: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Need to call: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Additional chips needed: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+
+
+Before: Chip Inventory: {50: 10, 100: 0, 250: 1, 500: 0, 1000: 0}, Total Value: 750
+Requesting to trade in: 100 for 1
+Added 1 White chip(s) from remainder
+Traded in 1 Green chip(s) to get 2 Red chip(s)!
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+Request of $0 successful!
+After: Chip Inventory: {50: 11, 100: 2, 250: 0, 500: 0, 1000: 0}, Total Value: 750
+
+----Alice placed a bet of Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 11, 100: 2, 250: 0, 500: 0, 1000: 0}, Total Value: 750
+Bob bet a total of $100 this round!: Chip Inventory: {50: 10, 100: 5, 250: 1, 500: 0, 1000: 0}, Total Value: 1250
+Charlie bet a total of $100 this round!: Chip Inventory: {50: 10, 100: 7, 250: 1, 500: 0, 1000: 0}, Total Value: 1450
+Diana bet a total of $100 this round!: Chip Inventory: {50: 2, 100: 24, 250: 1, 500: 1, 1000: 0}, Total Value: 3250
+
+
+Bob has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Charlie has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Diana has contributed Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100 to pot #1
+
+Before: Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Chip Inventory: {50: 0, 100: 1, 250: 0, 500: 0, 1000: 0}, Total Value: 100
+Request of $100 successful!
+After: Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+
+Main pot: $450
+Alice: $750
+Alice betted: $0
+Bob: $1250
+Bob betted: $0
+Charlie: $1450
+Charlie betted: $0
+Diana: $3250
+Diana betted: $0
+Community Cards: A♠ K♦ 10♥
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 11, 100: 2, 250: 0, 500: 0, 1000: 0}, Total Value: 750
+Bob bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 5, 250: 1, 500: 0, 1000: 0}, Total Value: 1250
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 7, 250: 1, 500: 0, 1000: 0}, Total Value: 1450
+Diana bet a total of $0 this round!: Chip Inventory: {50: 2, 100: 24, 250: 1, 500: 1, 1000: 0}, Total Value: 3250
+
+
+Alice: $750
+Alice betted: $0
+Bob: $1250
+Bob betted: $0
+Charlie: $1450
+Charlie betted: $0
+Diana: $3250
+Diana betted: $0
+Community Cards: A♠ K♦ 10♥ 8♥
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 11, 100: 2, 250: 0, 500: 0, 1000: 0}, Total Value: 750
+Bob bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 5, 250: 1, 500: 0, 1000: 0}, Total Value: 1250
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 7, 250: 1, 500: 0, 1000: 0}, Total Value: 1450
+Diana bet a total of $0 this round!: Chip Inventory: {50: 2, 100: 24, 250: 1, 500: 1, 1000: 0}, Total Value: 3250
+
+
+Community Cards: A♠ K♦ 10♥ 8♥ 8♠
+Alice chooses to CHECK with amount $0
+Bob chooses to CHECK with amount $0
+Charlie chooses to CHECK with amount $0
+Diana chooses to CHECK with amount $0
+
+
+Alice bet a total of $0 this round!: Chip Inventory: {50: 11, 100: 2, 250: 0, 500: 0, 1000: 0}, Total Value: 750
+Bob bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 5, 250: 1, 500: 0, 1000: 0}, Total Value: 1250
+Charlie bet a total of $0 this round!: Chip Inventory: {50: 10, 100: 7, 250: 1, 500: 0, 1000: 0}, Total Value: 1450
+Diana bet a total of $0 this round!: Chip Inventory: {50: 2, 100: 24, 250: 1, 500: 1, 1000: 0}, Total Value: 3250
+
+
+
+Showdown Results:
+Community Cards: A♠ K♦ 10♥ 8♥ 8♠
+Alice:
+   Hand: J♣ A♣
+   Best hand: 3
+    J♣ A♣ A♠ 8♥ 8♠
+Bob:
+   Hand: 4♦ 10♣
+   Best hand: 3
+    4♦ 10♣ 10♥ 8♥ 8♠
+Charlie:
+   Hand: 3♥ A♥
+   Best hand: 3
+    3♥ A♥ A♠ 8♥ 8♠
+Diana:
+   Hand: 9♦ Q♥
+   Best hand: 2
+    9♦ Q♥ A♠ 8♥ 8♠
+Alice has won the round!
+   Best hand: 3
+   Cards:  J♣ A♣ A♠ 8♥ 8♠
+Main pot: 450
+Distributing pot of $450 among 1 winners
+Each winner gets $450, with $0 remainder
+Alice receives $450
+Chip Inventory: {50: 0, 100: 0, 250: 0, 500: 0, 1000: 0}, Total Value: 0
+WARNING: Total chip value changed to $7150!
+
+=== Consistency Test Results ===
+Total rounds played: 10
+Rounds with consistent chip total: 0
+Rounds with inconsistent chip total: 10
+TEST FAILED: Total chip value changed in 10 rounds.
+Unique totals encountered: [7150]
+[7150, 7150, 7150, 7150, 7150, 7150, 7150, 7150, 7150, 7150]
