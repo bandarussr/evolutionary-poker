@@ -141,12 +141,15 @@ class TexasHoldem:
             player_queue = active_players
             to_call = ChipStash()
         
+        for player in active_players:
+            player.raised = False
+
         while player_queue:
             player = player_queue.pop(0)
             if player.folded:
                 continue
 
-            action, amount = player.make_decision(to_call, self.min_raise, self.community_cards)
+            action, amount = player.make_decision(to_call, self.min_raise, self.community_cards, self.players[self.dealer_idx].name)
             print(f"{player.name} chooses to {action.name} with amount ${amount if amount else 0}")
             if action == Action.FOLD:
                 player.folded = True
@@ -175,6 +178,7 @@ class TexasHoldem:
                 call_stash = to_call - player.bet + raise_value
                 player.place_bet(call_stash)
                 to_call = ChipStash(player.bet.inventory.copy())
+                player.raised = True
                 player_queue = [p for p in self.players if not p.folded and p != player]
 
             elif action == Action.ALL_IN:
