@@ -1,3 +1,4 @@
+from collections import deque
 class Chips:
     White = 50
     Red = 100
@@ -5,8 +6,10 @@ class Chips:
     Blue = 500
     Black = 1000
 
-class ChipStash(Chips):
+class ChipStash:
     def __init__(self, initial_inventory=None):
+        # list of people who've contributed to this pot
+        self.contributors = []
         # Initialize the inventory with default values of 0 for each chip type unless given a dict
         self.inventory = {}
         for chip_value in (Chips.White, Chips.Red, Chips.Green, Chips.Blue, Chips.Black):
@@ -61,34 +64,126 @@ class ChipStash(Chips):
 
     def trade_in(self, target_chip_value: int = None, target_count: int = 0):
         """
-        Trades in higher denomination chips to lower denominations.
-        If target_chip_value and target_count are provided, prioritizes trading in chips to meet the target.
+        Trades chips to achieve the specified target count of chips with the specified value.
+        Can break down larger denominations or combine smaller ones as needed.
         """
-        if target_chip_value and target_count > 0:
-            can_trade, _, trade_plan = self._calculate_trade_in(target_chip_value, target_count)
-            if not can_trade:
-                raise ValueError(f"Cannot achieve {target_count} chips of value {target_chip_value} through trade-in.")
-
-            # Execute the trade plan
-            for higher_value, chips_to_trade in trade_plan.items():
-                self.inventory[higher_value] -= chips_to_trade
-                self.inventory[target_chip_value] += chips_to_trade
-
-            # Stop if the target is met
-            if self.inventory[target_chip_value] >= target_count:
+        if target_chip_value is None or target_count <= 0:
+            return
+            
+        # Check if we already have enough of the target chips
+        existing_count = self.get_chip_count(target_chip_value)
+        if existing_count >= target_count:
+            return  # We already have enough
+        
+        # How many more target chips we need
+        remaining_to_create = target_count - existing_count
+        
+        # Sort chips by value (highest to lowest)
+        chip_hier = sorted(self.inventory.keys(), reverse=True)
+        
+        # Phase 1: Convert higher denominations down to target value
+        for chip in chip_hier:
+            # Skip chips with same or lower value than target
+            if chip <= target_chip_value:
+                continue
+                
+            available = self.get_chip_count(chip)
+            if available <= 0:
+                continue
+                
+            # How many target chips we can get from this denomination
+            target_chips_per_high_chip = chip // target_chip_value
+            
+            # How many high chips we need to trade to meet our target (but no more than available)
+            high_chips_to_trade = min(available, (remaining_to_create + target_chips_per_high_chip - 1) // target_chips_per_high_chip)
+            
+            if high_chips_to_trade > 0:
+                # Calculate how many target chips we'll get and remaining value
+                total_value_traded = high_chips_to_trade * chip
+                target_chips_to_receive = total_value_traded // target_chip_value
+                remainder_value = total_value_traded % target_chip_value
+                
+                # Update our inventory
+                self.remove_chips(chip, high_chips_to_trade)
+                self.add_chips(target_chip_value, target_chips_to_receive)
+                
+                # Handle remainder by adding smaller denomination chips
+                if remainder_value > 0:
+                    # Find appropriate smaller denominations for the remainder
+                    for smaller_chip in sorted(self.inventory.keys(), reverse=True):
+                        if smaller_chip < target_chip_value and remainder_value >= smaller_chip:
+                            chips_to_add = remainder_value // smaller_chip
+                            if chips_to_add > 0:
+                                self.add_chips(smaller_chip, chips_to_add)
+                                remainder_value -= chips_to_add * smaller_chip
+                                
+                                # Get chip name for output
+                                smaller_chip_name = [name for name, value in Chips.__dict__.items() 
+                                                if value == smaller_chip][0]
+                                print(f"Added {chips_to_add} {smaller_chip_name} chip(s) from remainder")
+                        
+                        if remainder_value == 0:
+                            break
+                
+                # Update our remaining need
+                remaining_to_create -= target_chips_to_receive
+                
+                # Get readable chip names for output
+                chip_name = [name for name, value in Chips.__dict__.items() if value == chip][0]
+                target_chip_name = [name for name, value in Chips.__dict__.items() if value == target_chip_value][0]
+                print(f"Traded in {high_chips_to_trade} {chip_name} chip(s) to get {target_chips_to_receive} {target_chip_name} chip(s)!")
+                
+            # Check if we've met our target
+            if remaining_to_create <= 0:
                 return
-
-        # General trade-in logic (existing behavior)
-        chip_hierarchy = sorted(self.inventory.keys(), reverse=True)  # Highest to lowest value
-        for i in range(len(chip_hierarchy) - 1):  # Skip the lowest denomination
-            higher_value = chip_hierarchy[i]
-            lower_value = chip_hierarchy[i + 1]
-
-            # Convert higher denomination chips to lower denomination chips
-            while self.inventory[higher_value] > 0:
-                chips_to_add = higher_value // lower_value
-                self.inventory[higher_value] -= 1
-                self.inventory[lower_value] += chips_to_add
+        
+        # Phase 2: Combine smaller denominations up to target value
+        # First calculate total value available from smaller chips
+        total_small_value = 0
+        smallest_chips = []
+        for chip in sorted(self.inventory.keys()):  # Lowest to highest
+            if chip < target_chip_value:
+                total_small_value += chip * self.get_chip_count(chip)
+                smallest_chips.append(chip)
+        
+        # How many target chips can we make from smaller denominations
+        possible_target_chips = total_small_value // target_chip_value
+        
+        if possible_target_chips > 0:
+            # We can make some target chips from smaller denominations
+            to_create = min(possible_target_chips, remaining_to_create)
+            value_needed = to_create * target_chip_value
+            value_used = 0
+            
+            # Use chips from smallest to largest to make up the value
+            for chip in smallest_chips:
+                available = self.get_chip_count(chip)
+                value_from_denom = available * chip
+                
+                # How much of this denomination to use
+                if value_used + value_from_denom <= value_needed:
+                    # Use all available chips of this denomination
+                    value_used += value_from_denom
+                    self.remove_chips(chip, available)
+                    
+                    chip_name = [name for name, value in Chips.__dict__.items() if value == chip][0]
+                    print(f"Combined all {available} {chip_name} chip(s) toward {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s)")
+                else:
+                    # Use only what we need from this denomination
+                    chips_needed = (value_needed - value_used) // chip
+                    if chips_needed > 0:
+                        value_used += chips_needed * chip
+                        self.remove_chips(chip, chips_needed)
+                        
+                        chip_name = [name for name, value in Chips.__dict__.items() if value == chip][0]
+                        print(f"Combined {chips_needed} {chip_name} chip(s) toward {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s)")
+                
+                if value_used >= value_needed:
+                    break
+                    
+            # Add the target chips we've created
+            self.add_chips(target_chip_value, to_create)
+            print(f"Created {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s) from smaller denominations")
 
     def total_value(self) -> int:
         return sum(value * count for value, count in self.inventory.items())
@@ -104,40 +199,38 @@ class ChipStash(Chips):
             return self.inventory[chip_value]
         raise ValueError(f"No chip found for value: {chip_value}")
 
+    #TODO:: when a person doesn't have that spcific chips, can't transfer
     def transfer_chips(self, other_stash: "ChipStash", chips_to_transfer: "ChipStash"):
-        total_value = 0
-        
-        # Validate that the other stash has enough of each chip type to transfer
-        for chip_value, requested_count in chips_to_transfer.inventory.items():
-            if requested_count <= 0:
-                continue  # Skip zero or negative counts
-                
-            if chip_value not in other_stash.inventory:
-                raise ValueError(f"Invalid chip value in the source stash: {chip_value}")
-                
-            # Check if source has enough of this chip type
-            if other_stash.inventory[chip_value] < requested_count:
-                # Try to trade in higher denominations
-                other_stash.trade_in(chip_value, requested_count)
-                
-                # Check again after trade-in
-                if other_stash.inventory[chip_value] < requested_count:
-                    raise ValueError(f"Not enough chips of value {chip_value} to transfer after trade-in attempt.")
-            
-            # Keep track of total value for reporting
-            total_value += chip_value * requested_count
-        
-        # Perform the transfer for each chip type
-        for chip_value, requested_count in chips_to_transfer.inventory.items():
-            if requested_count <= 0:
-                continue
-                
-            # Transfer the chips
-            other_stash.remove_chips(chip_value, requested_count)
-            self.add_chips(chip_value, requested_count)
-        
-        if total_value > 0:
-            print(f"Transfer of ${total_value} successful!")
+        if other_stash.total_value() < chips_to_transfer.total_value():
+            raise ValueError("Insufficient chips to fulfill the request.")
+        sorted_chips = sorted(self.inventory.keys(), reverse=True)
+        # transfer = {chip: 0 for chip in self.inventory}
+        transfer = ChipStash()
+        print(f"\nBefore: {other_stash}")
+        for chip in sorted_chips:
+            requested_chips = chips_to_transfer.get_chip_count(chip)
+            available_chips = other_stash.get_chip_count(chip)
+            if requested_chips > 0:
+                to_transfer = min(requested_chips, available_chips)
+                # transfer[chip] = chips_to_transfer
+                if to_transfer <= 0:
+                    print(f"Requesting to trade in: {chip} for {requested_chips}")
+                    other_stash.trade_in(chip, requested_chips)
+                    available_chips = other_stash.get_chip_count(chip)
+                    to_transfer = min(requested_chips, available_chips)
+                    if available_chips <= 0:
+                        continue
+                transfer.add_chips(chip, to_transfer)
+                # self.inventory[chip] -= chips_to_transfer
+                other_stash.remove_chips(chip, to_transfer)
+        total_value = transfer.total_value()
+        print(transfer)
+        for chip, amount in transfer.inventory.items():
+            self.add_chips(chip, amount)
+        print(f"Request of ${total_value} successful!")
+        print(f"After: {other_stash}\n")
+
+
 
     def dollar_to_chips(self, value):
         bet_chips = ChipStash()
@@ -170,103 +263,23 @@ class ChipStash(Chips):
     def __str__(self):
         return f"Chip Inventory: {self.inventory}, Total Value: {self.total_value()}"
 
-    def __sub__(self, other: "ChipStash") -> "ChipStash":
-        if not isinstance(other, ChipStash):
-            raise TypeError("Subtraction only supported between ChipStash objects.")
-
-        # Create a copy of our chips to work with
-        result = self.copy()
-        
-        # Check if we have enough total value
-        if result.total_value() < other.total_value():
-            raise ValueError(f"Cannot subtract ${other.total_value()} from ${result.total_value()}")
-            
-        # Process each chip denomination from the other stash
-        for chip_value, count in other.inventory.items():
-            if count == 0:
-                continue  # Skip if no chips of this value to subtract
-                
-            # If we don't have enough of this specific denomination
-            if result.inventory[chip_value] < count:
-                # Make change from higher denominations
-                result.trade_in(chip_value, count)
-                
-                # If we still don't have enough after making change
-                if result.inventory[chip_value] < count:
-                    raise ValueError(f"Cannot subtract {count} chips of value {chip_value}. Only {result.inventory[chip_value]} available after trade-in.")
-            
-            # Now subtract the chips
-            result.remove_chips(chip_value, count)
-            
-        return result
-
-    def __add__(self, other: "ChipStash") -> "ChipStash":
-        if not isinstance(other, ChipStash):
-            raise TypeError("Addition only supported between ChipStash objects.")
-
-        result = ChipStash(self.inventory.copy())
-        for chip_value, count in other.inventory.items():
-            result.inventory[chip_value] += count
-
-        return result
-
-    def __iadd__(self, other: "ChipStash") -> "ChipStash":
-        if not isinstance(other, ChipStash):
-            raise TypeError("In-place addition only supported between ChipStash objects.")
-
-        for chip_value, count in other.inventory.items():
-            self.inventory[chip_value] += count
-
-        return self
-
-    def __isub__(self, other: "ChipStash") -> "ChipStash":
-        if not isinstance(other, ChipStash):
-            raise TypeError("In-place subtraction only supported between ChipStash objects.")
-
-        chip_hierarchy = sorted(self.inventory.keys(), reverse=True)
-
-        for chip_value in chip_hierarchy:
-            need = other.inventory.get(chip_value, 0)
-            have = self.inventory.get(chip_value, 0)
-
-            if need > have:
-                self.trade_in(target_chip_value=chip_value, target_count=need)
-                have = self.inventory.get(chip_value, 0)
-
-            if need > have:
-                raise ValueError(f"Cannot subtract {need} chips of value {chip_value}. Only {have} available after trade-in.")
-
-            self.remove_chips(chip_value, need)
-
-        return self
     
     def difference_to(self, other: "ChipStash") -> "ChipStash":
-        """
-        Calculate the ChipStash needed to reach the value of 'other' from this stash.
-        
-        This is particularly useful for betting scenarios where we need to know what
-        additional chips a player needs to add to their bet to match a call amount.
-        
-        Args:
-            other: The target ChipStash to match
-            
-        Returns:
-            A new ChipStash containing the chips needed to match the target value
-        """
-        # Calculate the difference in total value
         value_difference = other.total_value() - self.total_value()
         
-        # If this stash is already higher value than the other, no additional chips needed
+        # If this stash is already equal or higher value than the other, no additional chips needed
         if value_difference <= 0:
             return ChipStash()
             
-        # Create a new stash to hold the optimal combination of chips for the difference
+        # Create a new stash to hold the chip combination for the difference
         result = ChipStash()
         
         # Fill in chips from highest to lowest denomination
         remaining = value_difference
-        for chip_value in sorted([Chips.Black, Chips.Blue, Chips.Green, Chips.Red, Chips.White], reverse=True):
-            # How many of this chip can we use
+        chip_values = sorted(self.inventory.keys(), reverse=True)  # Sorted high to low
+        
+        for chip_value in chip_values:
+            # How many of this chip denomination do we need
             chip_count = remaining // chip_value
             if chip_count > 0:
                 result.add_chips(chip_value, chip_count)
@@ -276,4 +289,38 @@ class ChipStash(Chips):
             if remaining == 0:
                 break
                 
+        # If we couldn't match exactly with the available denominations
+        if remaining > 0:
+            # Find smallest denomination to handle the remainder
+            smallest_denom = min(self.inventory.keys())
+            extra_chips = (remaining + smallest_denom - 1) // smallest_denom  # Ceiling division
+            result.add_chips(smallest_denom, extra_chips)
+            
         return result
+    def to_smallest_denomination(self) -> "ChipStash":
+        """
+        Returns a new ChipStash containing all value converted to the smallest denomination chips.
+        
+        Returns:
+            A new ChipStash with only the smallest denomination chips
+        """
+        # Get all valid chip denominations from the inventory keys
+        if not self.inventory:
+            return ChipStash()  # Return empty stash if inventory is empty
+            
+        # Find the smallest denomination available in the inventory
+        smallest_denomination = min(self.inventory.keys())
+        
+        # Calculate the total value of all chips
+        total_value = self.total_value()
+        
+        # Create a new ChipStash with all value in smallest denomination
+        result = ChipStash()
+        chip_count = total_value // smallest_denomination
+        if chip_count > 0:
+            result.add_chips(smallest_denomination, chip_count)
+        
+        return result
+    
+    # def redistribute(self):
+

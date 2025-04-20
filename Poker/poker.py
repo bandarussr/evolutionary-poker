@@ -30,6 +30,9 @@ class TexasHoldem:
         for p in self.players:
             p.evaluate_hand(self.community_cards)
         self._betting_round()
+        for player in self.players:
+            print(f"{player.name}: ${player.chips.total_value()}")
+            print(f"{player.name} betted: ${player.bet.total_value()}")
 
         # Flop
         self._deal_flop()
@@ -38,6 +41,9 @@ class TexasHoldem:
                 p.evaluate_hand(self.community_cards)
         self._display_community_cards()
         self._betting_round()
+        for player in self.players:
+            print(f"{player.name}: ${player.chips.total_value()}")
+            print(f"{player.name} betted: ${player.bet.total_value()}")
 
         # Turn
         self._deal_turn()
@@ -86,13 +92,19 @@ class TexasHoldem:
         
         self.players[sb_idx].place_bet(self.small_blind.copy())
         # self.main_pot.transfer_chips(self.players[sb_idx].chips, self.small_blind)
+        self.main_pot.transfer_chips(self.players[sb_idx].bet, self.players[sb_idx].bet)
         print(f"{self.players[sb_idx].name} posts small blind: ${self.small_blind.total_value()}")
+
+        # goes directly into the main pot
+        
 
         # Posts the big blind
         # TODO:: May need to remove transferchips depending on place_bet implementation
         self.players[bb_idx].place_bet(self.big_blind.copy())
         # self.main_pot.transfer_chips(self.players[bb_idx].chips, self.big_blind)
+        self.main_pot.transfer_chips(self.players[bb_idx].bet, self.players[bb_idx].bet)
         print(f"{self.players[bb_idx].name} posts big blind: ${self.big_blind.total_value()}")
+        
         
         self._deal_cards()
 
@@ -134,10 +146,27 @@ class TexasHoldem:
         
         if len(self.community_cards) == 0:
             to_call = self.big_blind
-            start_idx = (self.dealer_idx + 3) % len(self.players)
-            player_queue = active_players[start_idx:] + active_players[:start_idx]
-            active_players = [p for p in self.players if not p.folded and p.chips.total_value() > 0 and self.players[(self.dealer_idx + 2) % len(self.players)] != p]
+            # start_idx = (self.dealer_idx + 3) % len(self.players)
+            # player_queue = active_players[start_idx:] + active_players[:start_idx]
+            # active_players = [p for p in self.players if not p.folded and p.chips.total_value() > 0 and self.players[(self.dealer_idx + 2) % len(self.players)] != p]
+            if len(active_players) > 2:
+                # In games with more than 2 players, start after the big blind
+                start_idx = (self.dealer_idx + 3) % len(self.players)
+                player_queue = active_players[start_idx:] + active_players[:start_idx]
+                # Don't exclude the big blind player from active players
+                print(f"Not here: {player_queue}")
+                active_players = [p for p in self.players if not p.folded and p.chips.total_value() > 0]
+            else:
+                # In heads-up (2 player) games, dealer acts first pre-flop
+                start_idx = self.dealer_idx
+                player_queue = active_players[start_idx:] + active_players[:start_idx]
+                print(f"here: {player_queue}")
+                active_players = [p for p in self.players if not p.folded and p.chips.total_value() > 0]
         else:
+            start_idx = self.dealer_idx
+            player_queue = active_players[start_idx:] + active_players[:start_idx]
+            print(f"here: {player_queue}")
+            active_players = [p for p in self.players if not p.folded and p.chips.total_value() > 0]
             player_queue = active_players
             to_call = ChipStash()
         
@@ -182,15 +211,15 @@ class TexasHoldem:
                 player_queue = [p for p in self.players if not p.folded and p != player]
 
             elif action == Action.ALL_IN:
-                call_stash = to_call - player.chips
+                call_stash = to_call.difference_to(player.chips)
                 player.place_bet(call_stash)
                 if player.bet.total_value() > to_call.total_value():
                     to_call = ChipStash(player.bet.inventory.copy())
-                    player_queue = [p for p in self.players if not p.folded and p != player]
+                    player_queue += [p for p in self.players if not p.folded and p != player]
 
         print('\n')
         for p in self.players:
-            print(f"{p.name} bet a total of ${p.bet.total_value()} this round!")
+            print(f"{p.name} bet a total of ${p.bet.total_value()} this round!: {p.chips}")
             
         print('\n')
         self._resolve_pots()
@@ -198,9 +227,7 @@ class TexasHoldem:
     def _resolve_pots(self):
         # Gather players who bet > 0
         bettors = [p for p in self.players if p.bet.total_value() > 0]
-        for p in self.players:
-            if p.bet.total_value() > 0:
-                print(p.name)
+
         if not bettors:
             return
 
@@ -209,39 +236,21 @@ class TexasHoldem:
         remaining_players = bettors[:]
 
         prev_bet = 0
+        pot = self.main_pot
+        pot_idx = 1
         while remaining_players:
-            # Lowest contribution among remaining
-            current_bet = remaining_players[0].bet.total_value()
-            contribution = current_bet - prev_bet
-
-            if contribution <= 0:
-                break
-            if all(p.bet.total_value() == 0 for p in remaining_players):
-                break
-
-            pot = ChipStash()
 
             for player in remaining_players:
-                portion = ChipStash()
-                remaining = contribution
+                print(f"{player.name} has contributed {player.bet} to pot #{pot_idx}")
+                pot.transfer_chips(player.bet, player.bet)
+                pot.contributors.append(player.name)
 
-                for chip_value in sorted(player.bet.inventory.keys(), reverse=True):
-                    available = player.bet.inventory[chip_value]
-                    take = min(available, remaining // chip_value)
-                    if take > 0:
-                        portion.add_chips(chip_value, take)
-                        player.bet.remove_chips(chip_value, take)
-                        remaining -= chip_value * take
-
-                pot.transfer_chips(portion, portion)
-
-            if not self.main_pot.total_value():
-                self.main_pot = pot
-            else:
-                self.side_pots.append(pot)
-
-            prev_bet = current_bet
             remaining_players = [p for p in remaining_players if p.bet.total_value() > 0]
+            if remaining_players:
+                pot = ChipStash()
+                self.side_pots.append(pot)
+                pot_idx += 1
+                
 
         print(f"Main pot: ${self.main_pot.total_value()}")
         for i, side in enumerate(self.side_pots):
@@ -258,78 +267,124 @@ class TexasHoldem:
             return
 
         # Determine the best score
-        best_score = self.evaluator.evaluate_table(finalists, self.community_cards)
-        winners = [p for p in finalists if p.hand_eval == best_score[0]]
+        results = self.evaluator.evaluate_table(finalists, self.community_cards)
+        
+        # The first entry in results is either the top player or a tie group of top players
+        if isinstance(results[0], list):  # It's a tied group
+            winners = [player for player, _, _ in results[0]]
+        else:  # It's a single winner tuple (player, rank, values)
+            winners = [results[0][0]]
 
         print("\nShowdown Results:")
         self._display_community_cards()
 
         for player in finalists:
-            card_suit, card_val = player.hand_eval
+            hand_rank, card_val = player.hand_eval
             print(f"{player.name}:")
             print(f"   Hand: {player.hand[0]} {player.hand[1]}")
-            print(f"   Best hand: {card_suit}")
+            print(f"   Best hand: {hand_rank}")
             print(f"   ", " ".join(str(card) for card in card_val))
         
         for winner in winners:
-            card_suit, card_val = winner.hand_eval
+            hand_rank, card_val = winner.hand_eval
             print(f"{winner.name} has won the round!")
-            print(f"   Best hand: {card_suit}")
+            print(f"   Best hand: {hand_rank}")
             print(f"   Cards: ", " ".join(str(card) for card in card_val))
 
-        # Distribute the main pot
-        self._distribute_pot(self.main_pot, winners)
+        # Distribute the main pot - only to winners who contributed to this pot
+        eligible_main_pot_winners = [p for p in winners if p.name in self.main_pot.contributors]
+        print(f"Main pot: {self.main_pot.total_value()}")
+        self._distribute_pot(self.main_pot, eligible_main_pot_winners)
 
-        # Distribute side pots (if any)
+        # Distribute side pots (if any) - only to winners who contributed to each specific pot
         for pot in self.side_pots:
-            eligible = [p for p in winners if p in finalists]
-            self._distribute_pot(pot, eligible)
+            print(f"Side pot: {pot.total_value()}")
+            eligible_pot_winners = [p for p in winners if p.name in pot.contributors]
+            self._distribute_pot(pot, eligible_pot_winners)
 
-    
-
-    # TODO:: distributing the pot to winners is broken
     def _distribute_pot(self, pot: ChipStash, winners: List[Player]):
         if not winners or pot.total_value() == 0:
             return
-
-        total = pot.total_value()
-        base_share = total // len(winners)
-        remainder = total % len(winners)
-
+        
         # Determine winner closest to dealer counter-clockwise (i.e., highest index before dealer_idx)
         winner_indices = [self.players.index(p) for p in winners]
         sorted_winners = sorted(winner_indices, key=lambda i: (i - self.dealer_idx) % len(self.players), reverse=True)
         winner_order = [self.players[i] for i in sorted_winners]
-
+        
+        print(f"Distributing pot of ${pot.total_value()} among {len(winners)} winners")
+        
+        # Calculate each player's base share
+        share_value = pot.total_value() // len(winners)
+        remainder_value = pot.total_value() % len(winners)
+        
+        print(f"Each winner gets ${share_value}, with ${remainder_value} remainder")
+        
+        # Create a copy of the pot to work with
+        remaining_pot = pot.copy()
+        
+        # Step 1: Give each winner their even share
         for winner in winners:
-            payout = ChipStash()
-            remaining = base_share
-
-            for chip_value in sorted(pot.inventory.keys(), reverse=True):
-                count = min(pot.inventory[chip_value], remaining // chip_value)
-                if count > 0:
-                    payout.add_chips(chip_value, count)
-                    pot.remove_chips(chip_value, count)
-                    remaining -= chip_value * count
-
-            winner.chips.transfer_chips(payout, payout)
-
-            actual_value = payout.total_value()
-            if actual_value == base_share:
-                print(f"{winner.name} wins ${actual_value} from the pot")
-            else:
-                print(f"{winner.name} wins approximately ${actual_value} from the pot (rounded by chip limits)")
-
-        # Distribute remainder chips to the closest winner counter-clockwise from dealer
-        for _ in range(remainder):
-            for chip_value in sorted(pot.inventory.keys(), reverse=True):
-                for winner in winner_order:
-                    if pot.inventory[chip_value] > 0:
-                        pot.remove_chips(chip_value, 1)
-                        winner.chips.add_chips(chip_value, 1)
-                        print(f"{winner.name} receives an extra ${chip_value} chip from the remainder")
+            # Create a chip stash that is worth exactly share_value
+            winner_share = ChipStash()
+            
+            # Distribute from highest to lowest chips
+            remaining_share = share_value
+            for chip_value in sorted(remaining_pot.inventory.keys(), reverse=True):
+                if remaining_share <= 0:
+                    break
+                    
+                chips_available = remaining_pot.inventory[chip_value]
+                chips_needed = remaining_share // chip_value
+                chips_to_give = min(chips_available, chips_needed)
+                
+                if chips_to_give > 0:
+                    winner_share.add_chips(chip_value, chips_to_give)
+                    remaining_pot.remove_chips(chip_value, chips_to_give)
+                    remaining_share -= chip_value * chips_to_give
+            
+            # If we couldn't make exact change, trade in chips
+            if remaining_share > 0 and remaining_pot.total_value() > 0:
+                remaining_pot.to_smallest_denomination()
+                
+                # Try again with smaller denominations
+                for chip_value in sorted(remaining_pot.inventory.keys()):
+                    if remaining_share <= 0:
                         break
-                else:
-                    continue
-                break
-
+                        
+                    chips_available = remaining_pot.inventory[chip_value]
+                    chips_needed = remaining_share // chip_value
+                    chips_to_give = min(chips_available, chips_needed)
+                    
+                    if chips_to_give > 0:
+                        winner_share.add_chips(chip_value, chips_to_give)
+                        remaining_pot.remove_chips(chip_value, chips_to_give)
+                        remaining_share -= chip_value * chips_to_give
+            
+            # Transfer chips to the winner - FIXED: Add chips directly to winner's stash
+            print(f"{winner.name} receives ${winner_share.total_value()}")
+            # winner.chips.transfer_chips(winner_share, winner_share)  # THIS IS THE BUG!
+            # Correct way: directly add each chip to the winner's stash
+            for chip_value, chip_count in winner_share.inventory.items():
+                if chip_count > 0:
+                    winner.chips.add_chips(chip_value, chip_count)
+        print(remaining_pot)
+        # Step 2: Distribute remainder chips one at a time to players in order
+        if remaining_pot.total_value() > 0:
+            # Convert all remaining chips to smallest denomination for easier distribution
+            remaining_pot.to_smallest_denomination()
+            
+            # Give out one chip at a time
+            idx = self.dealer_idx + len(self.players) % len(self.players)
+            while remaining_pot.total_value() > 0:
+                # Find the smallest chip we have
+                for chip_value in sorted(remaining_pot.inventory.keys()):
+                    if remaining_pot.inventory[chip_value] > 0:
+                        # Give this chip to the next player
+                        winner = winner_order[idx % len(winner_order)]
+                        winner.chips.add_chips(chip_value, 1)
+                        remaining_pot.remove_chips(chip_value, 1)
+                        print(f"{winner.name} receives an extra ${chip_value} chip")
+                        
+                        # Move to next player
+                        idx = idx + 1 % len(self.players)
+                        break

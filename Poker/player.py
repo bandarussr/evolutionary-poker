@@ -17,11 +17,18 @@ class Action(Enum):
 
 class Player:
     def __init__(self, name: str):
+        # player_starting_chips = {
+        #     Chips.White: 20,
+        #     Chips.Red: 10,
+        #     Chips.Green: 4,
+        #     Chips.Blue: 2,
+        #     Chips.Black: 1
+        # }
         player_starting_chips = {
-            Chips.White: 20,
-            Chips.Red: 10,
-            Chips.Green: 4,
-            Chips.Blue: 2,
+            Chips.White: 1,
+            Chips.Red: 1,
+            Chips.Green: 1,
+            Chips.Blue: 1,
             Chips.Black: 1
         }
 
