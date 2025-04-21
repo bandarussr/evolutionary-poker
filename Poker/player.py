@@ -17,20 +17,20 @@ class Action(Enum):
 
 class Player:
     def __init__(self, name: str):
-        # player_starting_chips = {
-        #     Chips.White: 20,
-        #     Chips.Red: 10,
-        #     Chips.Green: 4,
-        #     Chips.Blue: 2,
-        #     Chips.Black: 1
-        # }
         player_starting_chips = {
-            Chips.White: 1,
-            Chips.Red: 1,
-            Chips.Green: 1,
-            Chips.Blue: 1,
+            Chips.White: 20,
+            Chips.Red: 10,
+            Chips.Green: 4,
+            Chips.Blue: 2,
             Chips.Black: 1
         }
+        # player_starting_chips = {
+        #     Chips.White: 1,
+        #     Chips.Red: 1,
+        #     Chips.Green: 1,
+        #     Chips.Blue: 1,
+        #     Chips.Black: 1
+        # }
 
         self.chips = ChipStash(player_starting_chips)
         self.name = name
@@ -86,6 +86,7 @@ class Player:
         # See how good the cards are
         self.evaluate_hand(community_cards)
         hand_rank = self.hand_eval[0]
+        player_call = (None, None)
 
 
         # Strong hand (7-10)
@@ -196,27 +197,30 @@ class Player:
         self_total_amnt_money = self.chips.total_value()
         # If user has enough money for the bet
         if(self_total_amnt_money >= bet.total_value()):
-            for chip_value, count in bet.inventory.items():
-                if count <= 0:
-                    continue
+        #     for chip_value, count in bet.inventory.items():
+        #         if count <= 0:
+        #             continue
                         
-                # If not enough of this chip, attempt trade-in
-                if self.chips.inventory.get(chip_value, 0) < count:
-                    self.chips.trade_in(target_chip_value=chip_value, target_count=count)
+        #         # If not enough of this chip, attempt trade-in
+        #         if self.chips.inventory.get(chip_value, 0) < count:
+        #             self.chips.trade_in(target_chip_value=chip_value, target_count=count)
 
-            for chip_value, count in bet.inventory.items():
-                if count > 0:
-                    self.chips.remove_chips(chip_value, count)
-                    self.bet.add_chips(chip_value, count)
+        #     for chip_value, count in bet.inventory.items():
+        #         if count > 0:
+        #             self.chips.remove_chips(chip_value, count)
+        #             self.bet.add_chips(chip_value, count)
+            self.bet.transfer_chips(self.chips, bet)
         else:
             # All in
-            all_in_chips = self.chips.dollar_to_chips(self_total_amnt_money)
+            # all_in_chips = self.chips.dollar_to_chips(self_total_amnt_money)
 
         # Deduct chips from player and add to their current bet
-            for chip_value, count in all_in_chips.inventory.items():
-                if count > 0:
-                    self.chips.remove_chips(chip_value, count)
-                    self.bet.add_chips(chip_value, count)
+            # for chip_value, count in all_in_chips.inventory.items():
+            #     if count > 0:
+            #         self.chips.remove_chips(chip_value, count)
+            #         self.bet.add_chips(chip_value, count)
+            # transfer all the money in the player inventory to their betting hand
+            self.bet.transfer_chips(self.chips, self.chips)
 
         print(f"--After place_bet func: {self.name} has {self.chips}" )
         print(f"--After place_bet func: {self.name} has bet {self.bet}")

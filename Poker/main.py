@@ -30,6 +30,7 @@ def main():
 def test_chip_consistency(num_tournaments=10):
     print(f"\n=== Testing Chip Consistency Over {num_tournaments} Tournaments ===")
     
+    
     # Track total statistics across all tournaments
     total_rounds_played = 0
     total_consistent_rounds = 0
@@ -43,8 +44,9 @@ def test_chip_consistency(num_tournaments=10):
         
         # Create the game instance
         game = TexasHoldem(players)
-        
-        # Calculate initial total chip value
+        print(f"Total chip value: ${sum(player.chips.total_value() for player in game.players)} (start)")
+        for player in game.players:
+            print(f"  {player.name}: ${player.chips.total_value()}")        # Calculate initial total chip value
         initial_total = sum(player.chips.total_value() for player in game.players)
         print(f"Initial total chip value: ${initial_total}")
         
@@ -115,4 +117,4 @@ if __name__ == "__main__":
     # main()
     
     # Run the chip consistency test
-    test_chip_consistency(10)
+    test_chip_consistency(25)

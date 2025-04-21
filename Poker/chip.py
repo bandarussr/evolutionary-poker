@@ -69,6 +69,9 @@ class ChipStash:
         """
         if target_chip_value is None or target_count <= 0:
             return
+        
+        # Store initial total value for validation
+        initial_total_value = self.total_value()
             
         # Check if we already have enough of the target chips
         existing_count = self.get_chip_count(target_chip_value)
@@ -135,55 +138,82 @@ class ChipStash:
                 
             # Check if we've met our target
             if remaining_to_create <= 0:
-                return
+                break
         
         # Phase 2: Combine smaller denominations up to target value
-        # First calculate total value available from smaller chips
-        total_small_value = 0
-        smallest_chips = []
-        for chip in sorted(self.inventory.keys()):  # Lowest to highest
-            if chip < target_chip_value:
-                total_small_value += chip * self.get_chip_count(chip)
-                smallest_chips.append(chip)
-        
-        # How many target chips can we make from smaller denominations
-        possible_target_chips = total_small_value // target_chip_value
-        
-        if possible_target_chips > 0:
-            # We can make some target chips from smaller denominations
-            to_create = min(possible_target_chips, remaining_to_create)
-            value_needed = to_create * target_chip_value
-            value_used = 0
+        if remaining_to_create > 0:
+            # First calculate total value available from smaller chips
+            total_small_value = 0
+            smaller_chips_inventory = {}  # Keep track of available smaller chips
             
-            # Use chips from smallest to largest to make up the value
-            for chip in smallest_chips:
-                available = self.get_chip_count(chip)
-                value_from_denom = available * chip
+            for chip in sorted(self.inventory.keys()):  # Lowest to highest
+                if chip < target_chip_value:
+                    available_count = self.get_chip_count(chip)
+                    if available_count > 0:
+                        total_small_value += chip * available_count
+                        smaller_chips_inventory[chip] = available_count
+            
+            # How many target chips can we make from smaller denominations
+            possible_target_chips = total_small_value // target_chip_value
+            
+            if possible_target_chips > 0:
+                # We can make some target chips from smaller denominations
+                to_create = min(possible_target_chips, remaining_to_create)
+                value_needed = to_create * target_chip_value
+                value_used = 0
                 
-                # How much of this denomination to use
-                if value_used + value_from_denom <= value_needed:
-                    # Use all available chips of this denomination
-                    value_used += value_from_denom
-                    self.remove_chips(chip, available)
+                # Make a copy of the inventory to track what we'll use
+                chips_to_use = {}
+                
+                # Use chips from largest to smallest (more efficient)
+                for chip in sorted(smaller_chips_inventory.keys(), reverse=True):
+                    available = smaller_chips_inventory[chip]
                     
-                    chip_name = [name for name, value in Chips.__dict__.items() if value == chip][0]
-                    print(f"Combined all {available} {chip_name} chip(s) toward {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s)")
-                else:
-                    # Use only what we need from this denomination
-                    chips_needed = (value_needed - value_used) // chip
+                    # How many of this chip can we use
+                    max_value_from_chip = available * chip
+                    value_to_use = min(max_value_from_chip, value_needed - value_used)
+                    chips_needed = value_to_use // chip
+                    
                     if chips_needed > 0:
                         value_used += chips_needed * chip
-                        self.remove_chips(chip, chips_needed)
+                        chips_to_use[chip] = chips_needed
                         
+                        # Get chip name for output
                         chip_name = [name for name, value in Chips.__dict__.items() if value == chip][0]
-                        print(f"Combined {chips_needed} {chip_name} chip(s) toward {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s)")
-                
-                if value_used >= value_needed:
-                    break
+                        if chips_needed == available:
+                            print(f"Combined all {chips_needed} {chip_name} chip(s) toward {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s)")
+                        else:
+                            print(f"Combined {chips_needed} {chip_name} chip(s) toward {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s)")
                     
-            # Add the target chips we've created
-            self.add_chips(target_chip_value, to_create)
-            print(f"Created {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s) from smaller denominations")
+                    if value_used >= value_needed:
+                        break
+                
+                # Only if we've collected enough value, perform the trade
+                if value_used >= value_needed:
+                    # Remove the used chips
+                    for chip, count in chips_to_use.items():
+                        self.remove_chips(chip, count)
+                    
+                    # Add the target chips
+                    self.add_chips(target_chip_value, to_create)
+                    print(f"Created {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s) from smaller denominations")
+                    
+                    # Update remaining need
+                    remaining_to_create -= to_create
+        
+        # Validate that the total value hasn't changed
+        final_total_value = self.total_value()
+        if initial_total_value != final_total_value:
+            print(f"WARNING: Total chip value changed during trade! Before: ${initial_total_value}, After: ${final_total_value}")
+            difference = final_total_value - initial_total_value
+            if difference > 0:
+                print(f"Value increased by ${difference}")
+            else:
+                print(f"Value decreased by ${-difference}")
+        else:
+            # Only print this in debug mode or when explicitly requested
+            # print(f"Trade validation successful: Total value maintained at ${initial_total_value}")
+            pass
 
     def total_value(self) -> int:
         return sum(value * count for value, count in self.inventory.items())
@@ -206,7 +236,7 @@ class ChipStash:
         sorted_chips = sorted(self.inventory.keys(), reverse=True)
         # transfer = {chip: 0 for chip in self.inventory}
         transfer = ChipStash()
-        print(f"\nBefore: {other_stash}")
+        # print(f"\nBefore: {other_stash}")
         for chip in sorted_chips:
             requested_chips = chips_to_transfer.get_chip_count(chip)
             available_chips = other_stash.get_chip_count(chip)
@@ -224,11 +254,11 @@ class ChipStash:
                 # self.inventory[chip] -= chips_to_transfer
                 other_stash.remove_chips(chip, to_transfer)
         total_value = transfer.total_value()
-        print(transfer)
+        # print(transfer)
         for chip, amount in transfer.inventory.items():
             self.add_chips(chip, amount)
-        print(f"Request of ${total_value} successful!")
-        print(f"After: {other_stash}\n")
+        # print(f"Request of ${total_value} successful!")
+        # print(f"After: {other_stash}\n")
 
 
 
@@ -295,7 +325,8 @@ class ChipStash:
             smallest_denom = min(self.inventory.keys())
             extra_chips = (remaining + smallest_denom - 1) // smallest_denom  # Ceiling division
             result.add_chips(smallest_denom, extra_chips)
-            
+        
+
         return result
     def to_smallest_denomination(self) -> "ChipStash":
         """
@@ -324,3 +355,26 @@ class ChipStash:
     
     # def redistribute(self):
 
+
+def dollar_to_chips(value):
+    bet_chips = ChipStash()
+    remaining = value
+    
+    # Get chip values sorted from highest to lowest
+    chip_values = []
+    for attr_name, attr_value in vars(Chips).items():
+        if not attr_name.startswith('__') and isinstance(attr_value, int):
+            chip_values.append(attr_value)
+    chip_values.sort(reverse=True)
+    
+    # Create optimal denomination mix
+    for chip_value in chip_values:
+        if remaining <= 0:
+            break
+            
+        count = remaining // chip_value
+        if count > 0:
+            bet_chips.add_chips(chip_value, count)
+            remaining -= chip_value * count
+    
+    return bet_chips

@@ -3,7 +3,7 @@
 
 from typing import List, Dict
 from enum import Enum, auto
-from chip import Chips, ChipStash
+from chip import Chips, ChipStash, dollar_to_chips
 from deck import Deck, Card
 from player import Player, Action
 from evaluate import Eval
@@ -23,6 +23,7 @@ class TexasHoldem:
         self.dealer_idx = 0
         self.min_raise = self.small_blind
         self.evaluator = Eval()
+        self.sb_paid = False
     
     def play(self):
 
@@ -74,6 +75,7 @@ class TexasHoldem:
         for pot in self.side_pots:
             pot.reset()
         self.min_raise = self.small_blind
+        self.sb_paid = False
         
         # Remove players that have no money
         self.players = [player for player in self.players if player.chips.total_value() > 0]
@@ -93,7 +95,7 @@ class TexasHoldem:
         
         self.players[sb_idx].place_bet(self.small_blind.copy())
         # self.main_pot.transfer_chips(self.players[sb_idx].chips, self.small_blind)
-        self.main_pot.transfer_chips(self.players[sb_idx].bet, self.players[sb_idx].bet)
+        # self.main_pot.transfer_chips(self.players[sb_idx].bet, self.players[sb_idx].bet)
         print(f"{self.players[sb_idx].name} posts small blind: ${self.small_blind.total_value()}")
 
         # goes directly into the main pot
@@ -103,7 +105,7 @@ class TexasHoldem:
         # TODO:: May need to remove transferchips depending on place_bet implementation
         self.players[bb_idx].place_bet(self.big_blind.copy())
         # self.main_pot.transfer_chips(self.players[bb_idx].chips, self.big_blind)
-        self.main_pot.transfer_chips(self.players[bb_idx].bet, self.players[bb_idx].bet)
+        # self.main_pot.transfer_chips(self.players[bb_idx].bet, self.players[bb_idx].bet)
         print(f"{self.players[bb_idx].name} posts big blind: ${self.big_blind.total_value()}")
         
         
@@ -139,34 +141,30 @@ class TexasHoldem:
 
     def _betting_round(self):
 
-        active_players = [p for p in self.players if not p.folded and p.chips.total_value() > 0]
+        # Players who have money and have not folded
+        active_players = [p for p in self.players if not p.folded and (p.chips.total_value() > 0 or p.bet.total_value() > 0)]
         if len(active_players) <= 1:
             return
 
         # Pre-flop
-        
         if len(self.community_cards) == 0:
-            to_call = self.big_blind
-            # start_idx = (self.dealer_idx + 3) % len(self.players)
-            # player_queue = active_players[start_idx:] + active_players[:start_idx]
-            # active_players = [p for p in self.players if not p.folded and p.chips.total_value() > 0 and self.players[(self.dealer_idx + 2) % len(self.players)] != p]
+            to_call = self.big_blind.copy()
             if len(active_players) > 2:
                 # In games with more than 2 players, start after the big blind
                 start_idx = (self.dealer_idx + 3) % len(self.players)
                 player_queue = active_players[start_idx:] + active_players[:start_idx]
-                # Don't exclude the big blind player from active players
-                print(f"Not here: {player_queue}")
-                active_players = [p for p in self.players if not p.folded and p.chips.total_value() > 0]
+                active_players = [p for p in self.players if not p.folded and (p.chips.total_value() > 0 or p.bet.total_value() > 0)]
             else:
                 # In heads-up (2 player) games, dealer acts first pre-flop
-                start_idx = self.dealer_idx
-                player_queue = active_players[start_idx:] + active_players[:start_idx]
-                print(f"here: {player_queue}")
-                active_players = [p for p in self.players if not p.folded and p.chips.total_value() > 0]
+                # Dealer is the big blind so don't include them in the pre-flop call
+                start_idx = (self.dealer_idx + 1) % len(active_players)
+                player_queue = [active_players[start_idx]]
+                print([p.name for p in player_queue])
+                active_players = [p for p in self.players if not p.folded and (p.chips.total_value() > 0 or p.bet.total_value() > 0)]
+        # Post-flop
         else:
             start_idx = self.dealer_idx
             player_queue = active_players[start_idx:] + active_players[:start_idx]
-            print(f"here: {player_queue}")
             active_players = [p for p in self.players if not p.folded and p.chips.total_value() > 0]
             player_queue = active_players
             to_call = ChipStash()
@@ -178,9 +176,24 @@ class TexasHoldem:
             player = player_queue.pop(0)
             if player.folded:
                 continue
+            active_players = [p for p in self.players if not p.folded and (p.chips.total_value() > 0 or p.bet.total_value() > 0)]
 
             action, amount = player.make_decision(to_call, self.min_raise, self.community_cards, self.players[self.dealer_idx].name)
-            print(f"{player.name} chooses to {action.name} with amount ${amount if amount else 0}")
+            
+            additional_chips = player.bet.difference_to(to_call)
+            print(f"Current bet: {player.bet}")
+            print(f"Need to call: {to_call}")
+            print(f"Additional chips needed: {additional_chips}\n")
+            
+            print(f"{player.name} chooses to {action.name if action else "No Action"} with amount ${amount if amount else 0}")
+            if player.name is active_players[(self.dealer_idx + 1) % len(active_players)].name:
+                if not self.sb_paid:
+                    trash = ChipStash()
+                    trash.transfer_chips(to_call, self.small_blind)
+                    self.sb_paid = True
+            if action == Action.CALL and amount.total_value() >= player.chips.total_value():
+                action = Action.ALL_IN
+            
             if action == Action.FOLD:
                 player.folded = True
                 continue
@@ -193,31 +206,37 @@ class TexasHoldem:
 
             elif action == Action.CALL:
                 # Calculate what additional chips are needed to match the call
-                additional_chips = player.bet.difference_to(to_call)
-                
-                # Debug information
-                print(f"Current bet: {player.bet}")
-                print(f"Need to call: {to_call}")
-                print(f"Additional chips needed: {additional_chips}\n")
+                # additional_chips = player.bet.difference_to(to_call)
                 
                 # Place the bet with the additional chips
                 player.place_bet(additional_chips)
                 
             elif action == Action.RAISE:
                 raise_value = amount
-                call_stash = to_call - player.bet + raise_value
-                player.place_bet(call_stash)
+                # print(player.bet)
+                # print(raise_value)
+                # print(call_stash)
+                additional_chips.transfer_chips(amount, amount)
+                # call_stash = to_call.difference_to(player.bet).transfer_chips(raise_value, raise_value)
+                player.place_bet(additional_chips)
                 to_call = ChipStash(player.bet.inventory.copy())
                 player.raised = True
-                player_queue = [p for p in self.players if not p.folded and p != player]
+                active_players = [p for p in self.players if not p.folded]
+                player_idx = [p.name for p in active_players].index(player.name)
+                st_idx = player_idx + 1 % len(active_players)
+                player_queue = active_players[st_idx:] + active_players[:player_idx]
 
             elif action == Action.ALL_IN:
                 call_stash = to_call.difference_to(player.chips)
                 player.place_bet(call_stash)
                 if player.bet.total_value() > to_call.total_value():
                     to_call = ChipStash(player.bet.inventory.copy())
-                    player_queue += [p for p in self.players if not p.folded and p != player]
-
+                    active_players = [p for p in self.players if not p.folded]
+                    player_idx = [p.name for p in active_players].index(player.name)
+                    st_idx = player_idx + 1 % len(active_players)
+                    player_queue = active_players[st_idx:] + active_players[:player_idx]
+                # st_idx = player_idx + 1 % len(active_players)
+                # player_queue = active_players[st_idx:] + active_players[:player_idx]
         print('\n')
         for p in self.players:
             print(f"{p.name} bet a total of ${p.bet.total_value()} this round!: {p.chips}")
@@ -368,7 +387,6 @@ class TexasHoldem:
             for chip_value, chip_count in winner_share.inventory.items():
                 if chip_count > 0:
                     winner.chips.add_chips(chip_value, chip_count)
-        print(remaining_pot)
         # Step 2: Distribute remainder chips one at a time to players in order
         if remaining_pot.total_value() > 0:
             # Convert all remaining chips to smallest denomination for easier distribution
@@ -389,3 +407,6 @@ class TexasHoldem:
                         # Move to next player
                         idx = idx + 1 % len(self.players)
                         break
+
+        for p in self.players:
+            print(f"{p.name} has {p.chips}")
