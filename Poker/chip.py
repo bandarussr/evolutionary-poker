@@ -123,7 +123,7 @@ class ChipStash:
                                 # Get chip name for output
                                 smaller_chip_name = [name for name, value in Chips.__dict__.items() 
                                                 if value == smaller_chip][0]
-                                print(f"Added {chips_to_add} {smaller_chip_name} chip(s) from remainder")
+                                # print(f"Added {chips_to_add} {smaller_chip_name} chip(s) from remainder")
                         
                         if remainder_value == 0:
                             break
@@ -134,7 +134,7 @@ class ChipStash:
                 # Get readable chip names for output
                 chip_name = [name for name, value in Chips.__dict__.items() if value == chip][0]
                 target_chip_name = [name for name, value in Chips.__dict__.items() if value == target_chip_value][0]
-                print(f"Traded in {high_chips_to_trade} {chip_name} chip(s) to get {target_chips_to_receive} {target_chip_name} chip(s)!")
+                # print(f"Traded in {high_chips_to_trade} {chip_name} chip(s) to get {target_chips_to_receive} {target_chip_name} chip(s)!")
                 
             # Check if we've met our target
             if remaining_to_create <= 0:
@@ -180,10 +180,10 @@ class ChipStash:
                         
                         # Get chip name for output
                         chip_name = [name for name, value in Chips.__dict__.items() if value == chip][0]
-                        if chips_needed == available:
-                            print(f"Combined all {chips_needed} {chip_name} chip(s) toward {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s)")
-                        else:
-                            print(f"Combined {chips_needed} {chip_name} chip(s) toward {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s)")
+                        # if chips_needed == available:
+                            # print(f"Combined all {chips_needed} {chip_name} chip(s) toward {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s)")
+                        # else:
+                            # print(f"Combined {chips_needed} {chip_name} chip(s) toward {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s)")
                     
                     if value_used >= value_needed:
                         break
@@ -196,7 +196,7 @@ class ChipStash:
                     
                     # Add the target chips
                     self.add_chips(target_chip_value, to_create)
-                    print(f"Created {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s) from smaller denominations")
+                    # print(f"Created {to_create} {[name for name, value in Chips.__dict__.items() if value == target_chip_value][0]} chip(s) from smaller denominations")
                     
                     # Update remaining need
                     remaining_to_create -= to_create
@@ -244,7 +244,7 @@ class ChipStash:
                 to_transfer = min(requested_chips, available_chips)
                 # transfer[chip] = chips_to_transfer
                 if to_transfer <= 0:
-                    print(f"Requesting to trade in: {chip} for {requested_chips}")
+                    # print(f"Requesting to trade in: {chip} for {requested_chips}")
                     other_stash.trade_in(chip, requested_chips)
                     available_chips = other_stash.get_chip_count(chip)
                     to_transfer = min(requested_chips, available_chips)

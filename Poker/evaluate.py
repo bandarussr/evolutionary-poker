@@ -1,4 +1,4 @@
-from deck import Card
+from Poker.deck import Card
 from typing import List, Tuple
 from itertools import combinations
 

@@ -40,7 +40,7 @@ def test_chip_consistency(num_tournaments=10):
         
         # Initialize new players for each tournament
         player_names = ["Alice", "Bob", "Charlie", "Diana"]
-        players = [Player(name) for name in player_names]
+        players = [Player(name, i) for i, name in enumerate(player_names)]
         
         # Create the game instance
         game = TexasHoldem(players)
@@ -97,6 +97,11 @@ def test_chip_consistency(num_tournaments=10):
         total_rounds_played += rounds_this_tournament
         total_consistent_rounds += consistent_rounds
     
+    for p in game.initial_players:
+        print(f"   {p.name} lasted {p.rounds_survived} rounds!")
+        for action, count in p.actions_called.items():
+            print(f"      {p.name} {action} {count} times!")
+
     # Final overall consistency check
     print(f"\n=== Overall Results Across {num_tournaments} Tournaments ===")
     print(f"Total rounds played: {total_rounds_played}")
@@ -117,4 +122,4 @@ if __name__ == "__main__":
     # main()
     
     # Run the chip consistency test
-    test_chip_consistency(25)
+    test_chip_consistency(10)

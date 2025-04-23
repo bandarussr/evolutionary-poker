@@ -2,18 +2,18 @@ from enum import Enum, auto
 from typing import List
 import random
 
-from chip import Chips, ChipStash
-from deck import Card
-from evaluate import Eval
+from Poker.chip import Chips, ChipStash
+from Poker.deck import Card
+from Poker.evaluate import Eval
 
 # Player actions
 class Action(Enum):
     FOLD = auto()
     CHECK = auto()
     CALL = auto()
-    BET = auto()
     RAISE = auto()
     ALL_IN = auto()
+    BLUFF = auto()
 
 class Player:
     def __init__(self, name: str):
@@ -24,23 +24,25 @@ class Player:
             Chips.Blue: 2,
             Chips.Black: 1
         }
-        # player_starting_chips = {
-        #     Chips.White: 1,
-        #     Chips.Red: 1,
-        #     Chips.Green: 1,
-        #     Chips.Blue: 1,
-        #     Chips.Black: 1
-        # }
 
         self.chips = ChipStash(player_starting_chips)
         self.name = name
         self.evaluator = Eval()
-        self.hand: List[Card] = [] # Players hand
-        self.hand_eval = (None, None) # Evaluation of players hand based on table cards format: (hand rank, [list, of value, of top, five])
+        self.hand: List[Card] = []
+        self.hand_eval = (None, None)
         self.bet = ChipStash()
         self.folded = False
         self.raised = False
         self.traits = self.initialize_traits()
+        self.rounds_survived = 0
+        self.actions_called = {action: 0 for action in Action}
+        self.position = None
+        self.parent1 = None
+        self.parent2 = None
+        self.lineage = None
+    
+    def set_pos(self, pos):
+        self.position = pos
 
     def __str__(self):
         return f"{self.name} (${self.chips.total_value})"
@@ -50,7 +52,7 @@ class Player:
             "aggressiveness": random.uniform(0,1),
             "risk_tolerance": random.uniform(0,1),
             "bluff_tendency": random.uniform(0,1),
-            "adapability": random.uniform(0,1),
+            "adaptability": random.uniform(0,1),
             "position_awareness": random.uniform(0,1),
             "chip_size_awareness": random.uniform(0,1)
         }
@@ -62,6 +64,7 @@ class Player:
         self.bet = ChipStash()
         self.folded = False
         self.raised = False
+
 
     # Function to receive cards 
     def receive_card(self, card: Card):
@@ -79,9 +82,9 @@ class Player:
         if self.folded:
             return Action.FOLD, None
         
-        print(f"Traits for {self.name}:")
-        for trait, value in self.traits.items():
-            print(f"  {trait}: {value:.2f}")
+        # print(f"Traits for {self.name}:")
+        # for trait, value in self.traits.items():
+        #     print(f"  {trait}: {value:.2f}")
 
         # See how good the cards are
         self.evaluate_hand(community_cards)
@@ -133,12 +136,12 @@ class Player:
             # Will raise if high bluff tolerance
             if(self.traits["bluff_tendency"] >= 0.7):
                 if(self.chips.total_value() + bet_size.total_value() >= (min_raise.total_value() * 2)):
-                    player_call =  Action.RAISE, (min_raise.total_value() * 2)
+                    player_call =  Action.BLUFF, (min_raise.total_value() * 2)
                 # else:
                 #     player_call = Action.ALL_IN, self.chips
             elif(self.traits["bluff_tendency"] >= 0.5):
                 if(self.chips.total_value() + bet_size.total_value() >= min_raise.total_value()):
-                    player_call =  Action.RAISE, min_raise.total_value()
+                    player_call =  Action.BLUFF, min_raise.total_value()
                 # else:
                 #     player_call = Action.ALL_IN, self.chips
             elif bet_size.total_value() == 0:
@@ -175,7 +178,7 @@ class Player:
                 # else:
                 #     player_call = Action.ALL_IN, self.chips
 
-        if(player_call[0] == Action.RAISE):
+        if(player_call[0] == Action.RAISE or player_call[0] == Action.BLUFF):
             if not self.raised:
                 try:
                     bet_stash = self.chips.copy().dollar_to_chips(player_call[1])
@@ -185,7 +188,14 @@ class Player:
             else:
                 print("***Player has already raised, can only call now***")
                 player_call = (Action.CALL, bet_size)
+        
+        # Catch-all
+        if not player_call[0]:
+            player_call = (Action.FOLD, None)
 
+
+        if player_call[0]:
+            self.actions_called[player_call[0]] += 1
         return player_call
 
     # Allows player to place a bet
@@ -222,8 +232,8 @@ class Player:
             # transfer all the money in the player inventory to their betting hand
             self.bet.transfer_chips(self.chips, self.chips)
 
-        print(f"--After place_bet func: {self.name} has {self.chips}" )
-        print(f"--After place_bet func: {self.name} has bet {self.bet}")
+        # print(f"--After place_bet func: {self.name} has {self.chips}" )
+        # print(f"--After place_bet func: {self.name} has bet {self.bet}")
 
     def evaluate_hand(self, community_cards: List[Card]):
         self.hand_eval = self.evaluator.evaluate_hand(self.hand + community_cards)
