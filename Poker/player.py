@@ -17,15 +17,15 @@ class Action(Enum):
 
 class Player:
     def __init__(self, name: str):
-        player_starting_chips = {
+        self.initial_chips = ChipStash({
             Chips.White: 20,
             Chips.Red: 10,
             Chips.Green: 4,
             Chips.Blue: 2,
             Chips.Black: 1
-        }
+        })
 
-        self.chips = ChipStash(player_starting_chips)
+        self.chips = self.initial_chips.copy()
         self.name = name
         self.evaluator = Eval()
         self.hand: List[Card] = []
@@ -40,7 +40,8 @@ class Player:
         self.parent1 = None
         self.parent2 = None
         self.lineage = None
-        self.fitness = None
+        self.lineage_fitness = 0
+        self.fitness = 0
     
     def set_pos(self, pos):
         self.position = pos

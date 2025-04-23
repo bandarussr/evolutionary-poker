@@ -33,6 +33,12 @@ def evolve_population(population):
         if random.random() < MUTATION_PROBABILITY:
             child = mutate(child)
 
+        # randomly chooses a parent to be apart of their lineage tree
+        # if parent1.fitness >= parent2.fitness:
+        #     child.lineage = parent1.lineage
+        # else:
+        #     child.lineage = parent2.lineage
+
         new_population.append(child)
 
     return new_population
@@ -40,18 +46,22 @@ def evolve_population(population):
 def set_population_stats(pop_arr, generation, population):
     pop_arr[generation] = {
         "fitness": np.average([p.fitness for p in population]),
-        "agressiveness": np.average([p.traits["aggressiveness"] for p in population]),
-        "risk_tolerance": np.average([p.traits["risk_tolerance"] for p in population]),
-        "bluff_tendency": np.average([p.traits["bluff_tendency"] for p in population]),
-        "adaptability": np.average([p.traits["adaptability"] for p in population]),
-        "position_awareness": np.average([p.traits["position_awareness"] for p in population]),
-        "chip_size_awareness": np.average([p.traits["chip_size_awareness"] for p in population]),
-        "bluff_attempts": np.average([p.actions_called[Action.BLUFF] for p in population]),
-        "fold": np.average([p.actions_called[Action.FOLD] for p in population]),
-        "raise": np.average([p.actions_called[Action.RAISE] for p in population]),
-        "call": np.average([p.actions_called[Action.CALL] for p in population]),
-        "all_in": np.average([p.actions_called[Action.ALL_IN] for p in population]),
-        "check": np.average([p.actions_called[Action.CHECK] for p in population])
+        "avg_traits": {
+            "agressiveness": np.average([p.traits["aggressiveness"] for p in population]),
+            "risk_tolerance": np.average([p.traits["risk_tolerance"] for p in population]),
+            "bluff_tendency": np.average([p.traits["bluff_tendency"] for p in population]),
+            "adaptability": np.average([p.traits["adaptability"] for p in population]),
+            "position_awareness": np.average([p.traits["position_awareness"] for p in population]),
+            "chip_size_awareness": np.average([p.traits["chip_size_awareness"] for p in population])
+        },
+        "avg_actions":{
+            "bluff_attempts": np.average([p.actions_called[Action.BLUFF] for p in population]),
+            "fold": np.average([p.actions_called[Action.FOLD] for p in population]),
+            "raise": np.average([p.actions_called[Action.RAISE] for p in population]),
+            "call": np.average([p.actions_called[Action.CALL] for p in population]),
+            "all_in": np.average([p.actions_called[Action.ALL_IN] for p in population]),
+            "check": np.average([p.actions_called[Action.CHECK] for p in population])
+        }
     }
 
 def set_individual_history(individual_hist, generation, population):
@@ -60,10 +70,13 @@ def set_individual_history(individual_hist, generation, population):
     for p in population:
         if p.lineage not in individual_hist:
             individual_hist[p.lineage] = []
+        fitness_values = [entry["fitness"] for entry in individual_hist[p.lineage]]
+        p.lineage_avg_fitness = np.average(fitness_values) if fitness_values or len(fitness_values) > 0 else 0
         individual_hist[p.lineage].append({
             "id": p.name,
             "generation": generation,
             "fitness": p.fitness,
+            "lineage_avg_fitness": p.lineage_avg_fitness,
             "rounds_lasted": p.rounds_survived,
             "table_position": p.position,
             "traits": p.traits.copy(),
@@ -76,11 +89,12 @@ def main():
 
     population_stats = {}
     individual_history = {}
+    set_individual_history(individual_history, -1, population)
 
     for generation in range(GENERATIONS):
         print(f"\n=== Generation {generation + 1} ===")
 
-        evaluated_population = run_sim(population, player_per_game = PLAYERS_PER_GAME)
+        evaluated_population = run_sim(population, PLAYERS_PER_GAME)
         set_population_stats(population_stats, generation, population)
         set_individual_history(individual_history, generation, population)
         print()

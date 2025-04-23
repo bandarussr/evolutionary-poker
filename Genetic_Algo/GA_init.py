@@ -23,6 +23,7 @@ def run_sim(players: List[Player], player_per_game: int):
         # play until this game has one winner
         while sum(player.chips.total_value() > 0 for player in poker.players) > 1:
             poker.play()
+
         for player in poker.players:
             new_population.append(player)
         calculate_fitness(poker)
@@ -35,6 +36,7 @@ def initiate_player(size: int, mode: str = "rand") -> list:
         for _ in range(size):
             p = Player(str(uuid.uuid4())[:8])
             p.initialize_traits()
+            p.lineage = str(uuid.uuid4())[:12]
             players.append(p)
         return players
     return None

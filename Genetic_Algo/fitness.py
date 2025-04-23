@@ -1,7 +1,24 @@
 
-# Players are ranked on a scale of 1 to 0, 1 being the winner, to 0 last place, with ranks in between
+# 3 metrics affects a players fitness value
+# rank_based_score which ranks player in a game (encourages players that have lasted longer)
+# the change in chips over time of the rounds they played (discourages players that have lost chips quicker)
+# lineage history, the their past generation do well (encourages producing better players consistently)
 def calculate_fitness(game):
     player_rank = sorted(game.initial_players, key=lambda p: p.rounds_survived, reverse=True)
     table_size = len(game.initial_players)
-    for i, k in enumerate(player_rank):
-        k.fitness = (table_size - i - 1) / (table_size - 1)
+    for i, p in enumerate(player_rank):
+        # Player who lasted longer get's a value closer to 1.0, player who didn't last closer to 0.0
+        rank_based_score = (table_size - i - 1) / (table_size - 1)
+
+        # What was a players change in chip over the rounds that they've played 
+        delta_chip = p.chips.total_value() - p.initial_chips.total_value()
+        d_chip_per_round = delta_chip / max(1, p.rounds_survived)
+        normalized_chip_growth = d_chip_per_round / p.initial_chips.total_value()
+
+        # Lineage history | normalized chip growth | rank_bsed_score
+        weights = (0.5, 0.3, 0.2)
+        print(f"calculating fitness for {p.name}: {p.lineage_avg_fitness} {rank_based_score} {normalized_chip_growth}")
+
+        p.fitness = (p.lineage_avg_fitness * weights[0]) + (rank_based_score * weights[1]) + (normalized_chip_growth * weights[2])
+
+
