@@ -40,6 +40,7 @@ class Player:
         self.parent1 = None
         self.parent2 = None
         self.lineage = None
+        self.fitness = None
     
     def set_pos(self, pos):
         self.position = pos

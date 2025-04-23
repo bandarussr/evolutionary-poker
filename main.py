@@ -2,7 +2,7 @@ from Genetic_Algo.GA_init import initiate_player, run_sim
 from Genetic_Algo.selection import tournament_selection
 from Genetic_Algo.crossover import crossover
 from Genetic_Algo.mutation import mutate
-from Genetic_Algo.fitness import fitness
+from Genetic_Algo.fitness import calculate_fitness
 from Poker.player import Action
 from collections import defaultdict
 
@@ -64,6 +64,7 @@ def set_individual_history(individual_hist, generation, population):
             "id": p.name,
             "generation": generation,
             "fitness": p.fitness,
+            "rounds_lasted": p.rounds_survived,
             "table_position": p.position,
             "traits": p.traits.copy(),
             "actions_made": p.actions_called.copy()

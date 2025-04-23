@@ -25,7 +25,7 @@ def run_sim(players: List[Player], player_per_game: int):
             poker.play()
         for player in poker.players:
             new_population.append(player)
-            player.fitness = calculate_fitness(player)
+        calculate_fitness(poker)
     return new_population
         
 
