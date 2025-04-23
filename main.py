@@ -34,10 +34,10 @@ def evolve_population(population):
             child = mutate(child)
 
         # randomly chooses a parent to be apart of their lineage tree
-        # if parent1.fitness >= parent2.fitness:
-        #     child.lineage = parent1.lineage
-        # else:
-        #     child.lineage = parent2.lineage
+        if parent1.fitness >= parent2.fitness:
+            child.lineage = parent1.lineage
+        else:
+            child.lineage = parent2.lineage
 
         new_population.append(child)
 
@@ -70,13 +70,13 @@ def set_individual_history(individual_hist, generation, population):
     for p in population:
         if p.lineage not in individual_hist:
             individual_hist[p.lineage] = []
-        fitness_values = [entry["fitness"] for entry in individual_hist[p.lineage]]
-        p.lineage_avg_fitness = np.average(fitness_values) if fitness_values or len(fitness_values) > 0 else 0
+        # fitness_values = [entry["fitness"] for entry in individual_hist[p.lineage]]
+        # p.lineage_avg_fitness = np.average(fitness_values) if fitness_values or len(fitness_values) > 0 else 0
         individual_hist[p.lineage].append({
             "id": p.name,
             "generation": generation,
             "fitness": p.fitness,
-            "lineage_avg_fitness": p.lineage_avg_fitness,
+            "lineage_avg_fitness": p.lineage_fitness,
             "rounds_lasted": p.rounds_survived,
             "table_position": p.position,
             "traits": p.traits.copy(),
