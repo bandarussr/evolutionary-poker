@@ -50,6 +50,7 @@ def evolve_population(population):
 def set_population_stats(pop_arr, generation, population):
     pop_arr[generation] = {
         "fitness": np.average([p.fitness for p in population]),
+        "avg_rounds_lasted": np.average([p.rounds_survived for p in population]),
         "avg_traits": {
             "agressiveness": np.average([p.traits["aggressiveness"] for p in population]),
             "risk_tolerance": np.average([p.traits["risk_tolerance"] for p in population]),

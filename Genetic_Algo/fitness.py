@@ -26,6 +26,6 @@ def calculate_fitness(game):
         p.lineage_fitness = (decay * p.lineage_fitness) + ((1 - decay) * player_score)
 
         p.fitness = (p.lineage_fitness * weights[0]) + (rank_based_score * weights[1]) + (normalized_chip_growth * weights[2])
-        print(f"calculating fitness for {p.name}: {p.lineage_fitness} {rank_based_score} {normalized_chip_growth} = {p.fitness}")
+        # print(f"calculating fitness for {p.name}: {p.lineage_fitness} {rank_based_score} {normalized_chip_growth} = {p.fitness}")
 
 
