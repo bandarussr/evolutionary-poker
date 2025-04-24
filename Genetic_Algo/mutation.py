@@ -5,7 +5,8 @@ import random
 # Implement mutation strategy and return a player object
 # Mutation will take a player's traits and adjust them randomly by a random amount (0-0.9 in a circular way)
 def mutate(player: Player) -> Player:
-    mutated_player = Player(str(uuid.uuid4())[:8])
+    # mutated_player = Player(str(uuid.uuid4())[:8])
+    mutated_player = player
     mutated_player.traits = player.traits.copy()
 
     for trait in mutated_player.traits:

@@ -9,6 +9,6 @@ def crossover(player1, player2) -> Player:
     mutated_player.traits = player1.traits.copy()
 
     for trait in mutated_player.traits:
-        mutated_player.traits[trait] = alpha * player1[trait] + (1 - alpha) * player2[trait] 
+        mutated_player.traits[trait] = alpha * player1.traits[trait] + (1 - alpha) * player2.traits[trait] 
 
     return mutated_player

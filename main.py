@@ -4,40 +4,44 @@ from Genetic_Algo.crossover import crossover
 from Genetic_Algo.mutation import mutate
 from Genetic_Algo.fitness import calculate_fitness
 from Poker.player import Action
-from collections import defaultdict
 
+import uuid
 import random
 import numpy as np
 import pprint
 
 # Configuration
-POPULATION_SIZE = 5
-GENERATIONS = 1
+POPULATION_SIZE = 50
+GENERATIONS = 30
 ROUNDS_PER_SIMULATION = 50
 CROSSOVER_PROBABILITY = 0.9
 MUTATION_PROBABILITY = 0.1
-PLAYERS_PER_GAME = 7
-TOURNAMENT_K = 5
+MAX_PLAYERS_PER_GAME = 7
+TOURNAMENT_K = 10
 
 def evolve_population(population):
     new_population = []
     while len(new_population) < len(population):
+        # print(len(population))
         parent1 = tournament_selection(TOURNAMENT_K, population)
         parent2 = tournament_selection(TOURNAMENT_K, population)
 
+        # A child player object is created
         if random.random() < CROSSOVER_PROBABILITY:
             child = crossover(parent1, parent2)
         else:
             child = parent1.copy()
-
-        if random.random() < MUTATION_PROBABILITY:
-            child = mutate(child)
 
         # randomly chooses a parent to be apart of their lineage tree
         if parent1.fitness >= parent2.fitness:
             child.lineage = parent1.lineage
         else:
             child.lineage = parent2.lineage
+
+        # child player is mutated
+        if random.random() < MUTATION_PROBABILITY:
+            child = mutate(child)
+            child.lineage = str(uuid.uuid4())[:12]
 
         new_population.append(child)
 
@@ -65,18 +69,19 @@ def set_population_stats(pop_arr, generation, population):
     }
 
 def set_individual_history(individual_hist, generation, population):
-    # if not isinstance(individual_hist, defaultdict):
-    #     individual_hist = defaultdict(list)
     for p in population:
         if p.lineage not in individual_hist:
-            individual_hist[p.lineage] = []
-        # fitness_values = [entry["fitness"] for entry in individual_hist[p.lineage]]
-        # p.lineage_avg_fitness = np.average(fitness_values) if fitness_values or len(fitness_values) > 0 else 0
-        individual_hist[p.lineage].append({
+            individual_hist[p.lineage] = {}
+        if f"generation_{generation}" not in individual_hist[p.lineage]:
+            individual_hist[p.lineage][f"generation_{generation}"] = []
+        fitness_values = [entry["lineage_fitness"] for entry in individual_hist[p.lineage][f"generation_{generation}"]]
+        lineage_avg_fitness = np.average(fitness_values) if fitness_values or len(fitness_values) > 0 else 0
+        individual_hist[p.lineage][f"generation_{generation}"].append({
             "id": p.name,
-            "generation": generation,
+            # "generation": generation,
             "fitness": p.fitness,
-            "lineage_avg_fitness": p.lineage_fitness,
+            "lineage_fitness": p.lineage_fitness,
+            "lineage_avg_fitness": lineage_avg_fitness,
             "rounds_lasted": p.rounds_survived,
             "table_position": p.position,
             "traits": p.traits.copy(),
@@ -88,21 +93,19 @@ def main():
     population = initiate_player(POPULATION_SIZE)
 
     population_stats = {}
-    individual_history = {}
-    set_individual_history(individual_history, -1, population)
+    lineage_history = {}
+    set_individual_history(lineage_history, -1, population)
 
     for generation in range(GENERATIONS):
         print(f"\n=== Generation {generation + 1} ===")
-
-        evaluated_population = run_sim(population, PLAYERS_PER_GAME)
+        evaluated_population = run_sim(population, MAX_PLAYERS_PER_GAME)
         set_population_stats(population_stats, generation, population)
-        set_individual_history(individual_history, generation, population)
-        print()
-        pprint.pprint(population_stats)
-        print()
-        pprint.pprint(individual_history)
+        set_individual_history(lineage_history, generation, population)
         population = evolve_population(evaluated_population)
 
+
+    pprint.pprint(population_stats)
+    pprint.pprint(lineage_history)
     print("\nEvolution complete.")
 
 if __name__ == "__main__":

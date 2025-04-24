@@ -4,27 +4,29 @@ from Genetic_Algo.fitness import calculate_fitness
 from typing import List
 import uuid
 from math import ceil
+import pprint
 
+def run_sim(players: List[Player], max_player_per_game: int):
 
-def run_sim(players: List[Player], player_per_game: int):
-    num_games = ceil(len(players) / player_per_game)
+    # Finds the number of games to divide players into games as fair as it can defined by max_player_per_game
+    num_games = ceil(len(players) / max_player_per_game)
     game = {}
     new_population = []
-
-    for game_round in range(num_games):
-        start_idx = game_round * player_per_game
-        end_idx = start_idx + player_per_game
-        game[f"game_{game_round}"] = players[start_idx:end_idx]
+    for game_round, player in enumerate(players):
+        round = game_round % num_games
+        if f"game_{round}" not in game:
+            game[f"game_{round}"] = []
+        game[f"game_{round}"].append(player)
 
     for player_list in game.values():
-        print(f"Starting game with players: {[p.name for p in player_list]}")
+        # print(f"Starting game with players: {[p.name for p in player_list]}")
         poker = TexasHoldem(player_list)
 
         # play until this game has one winner
         while sum(player.chips.total_value() > 0 for player in poker.players) > 1:
             poker.play()
 
-        for player in poker.players:
+        for player in poker.initial_players:
             new_population.append(player)
         calculate_fitness(poker)
     return new_population

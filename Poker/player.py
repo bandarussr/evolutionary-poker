@@ -51,12 +51,12 @@ class Player:
     
     def initialize_traits(self):
         return {
-            "aggressiveness": random.uniform(0,1),
-            "risk_tolerance": random.uniform(0,1),
-            "bluff_tendency": random.uniform(0,1),
-            "adaptability": random.uniform(0,1),
-            "position_awareness": random.uniform(0,1),
-            "chip_size_awareness": random.uniform(0,1)
+            "aggressiveness": float(f"{random.uniform(0, 1):.2f}"),
+            "risk_tolerance": float(f"{random.uniform(0, 1):.2f}"),
+            "bluff_tendency": float(f"{random.uniform(0, 1):.2f}"),
+            "adaptability": float(f"{random.uniform(0, 1):.2f}"),
+            "position_awareness": float(f"{random.uniform(0, 1):.2f}"),
+            "chip_size_awareness": float(f"{random.uniform(0, 1):.2f}")
         }
     
     # Function to reset the players info after each round
@@ -188,7 +188,7 @@ class Player:
                 except ValueError:
                     player_call = (Action.CALL, bet_size)
             else:
-                print("***Player has already raised, can only call now***")
+                # print("***Player has already raised, can only call now***")
                 player_call = (Action.CALL, bet_size)
         
         # Catch-all
@@ -239,3 +239,24 @@ class Player:
 
     def evaluate_hand(self, community_cards: List[Card]):
         self.hand_eval = self.evaluator.evaluate_hand(self.hand + community_cards)
+
+    def copy(self):
+        new_player = Player(self.name)
+        new_player.initial_chips = self.initial_chips.copy()
+        new_player.chips = self.chips.copy()
+        new_player.evaluator = self.evaluator  # Assuming Eval has no state
+        new_player.hand = self.hand.copy()
+        new_player.hand_eval = self.hand_eval
+        new_player.bet = self.bet.copy()
+        new_player.folded = self.folded
+        new_player.raised = self.raised
+        new_player.traits = self.traits.copy()
+        new_player.rounds_survived = self.rounds_survived
+        new_player.actions_called = self.actions_called.copy()
+        new_player.position = self.position
+        new_player.parent1 = self.parent1
+        new_player.parent2 = self.parent2
+        new_player.lineage = self.lineage
+        new_player.lineage_fitness = self.lineage_fitness
+        new_player.fitness = self.fitness
+        return new_player

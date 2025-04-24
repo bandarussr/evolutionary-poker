@@ -37,27 +37,27 @@ class TexasHoldem:
         for p in self.players:
             p.evaluate_hand(self.community_cards)
         self._betting_round()
-        for player in self.players:
-            print(f"{player.name}: ${player.chips.total_value()}")
-            print(f"{player.name} betted: ${player.bet.total_value()}")
+        # for player in self.players:
+        #     print(f"{player.name}: ${player.chips.total_value()}")
+        #     print(f"{player.name} betted: ${player.bet.total_value()}")
 
         # Flop
         self._deal_flop()
         for p in self.players:
             if not p.folded:
                 p.evaluate_hand(self.community_cards)
-        self._display_community_cards()
+        # self._display_community_cards()
         self._betting_round()
-        for player in self.players:
-            print(f"{player.name}: ${player.chips.total_value()}")
-            print(f"{player.name} betted: ${player.bet.total_value()}")
+        # for player in self.players:
+        #     print(f"{player.name}: ${player.chips.total_value()}")
+        #     print(f"{player.name} betted: ${player.bet.total_value()}")
 
         # Turn
         self._deal_turn()
         for p in self.players:
             if not p.folded:
                 p.evaluate_hand(self.community_cards)
-        self._display_community_cards()
+        # self._display_community_cards()
         self._betting_round()
 
         # River
@@ -65,7 +65,7 @@ class TexasHoldem:
         for p in self.players:
             if not p.folded:
                 p.evaluate_hand(self.community_cards)
-        self._display_community_cards()
+        # self._display_community_cards()
         self._betting_round()
 
         # Showdown
@@ -97,7 +97,7 @@ class TexasHoldem:
         sb_idx = (self.dealer_idx + 1) % len(self.players)
         bb_idx = (sb_idx + 1) % len(self.players)
 
-        print(f"\n{self.players[self.dealer_idx].name} is the dealer")
+        # print(f"\n{self.players[self.dealer_idx].name} is the dealer")
 
         # Posts the small blind
         # TODO:: May need to remove transferchips depending on place_bet implementation
@@ -105,7 +105,7 @@ class TexasHoldem:
         self.players[sb_idx].place_bet(self.small_blind.copy())
         # self.main_pot.transfer_chips(self.players[sb_idx].chips, self.small_blind)
         # self.main_pot.transfer_chips(self.players[sb_idx].bet, self.players[sb_idx].bet)
-        print(f"{self.players[sb_idx].name} posts small blind: ${self.small_blind.total_value()}")
+        # print(f"{self.players[sb_idx].name} posts small blind: ${self.small_blind.total_value()}")
 
         # goes directly into the main pot
         
@@ -115,7 +115,7 @@ class TexasHoldem:
         self.players[bb_idx].place_bet(self.big_blind.copy())
         # self.main_pot.transfer_chips(self.players[bb_idx].chips, self.big_blind)
         # self.main_pot.transfer_chips(self.players[bb_idx].bet, self.players[bb_idx].bet)
-        print(f"{self.players[bb_idx].name} posts big blind: ${self.big_blind.total_value()}")
+        # print(f"{self.players[bb_idx].name} posts big blind: ${self.big_blind.total_value()}")
         
         
         self._deal_cards()
@@ -125,8 +125,8 @@ class TexasHoldem:
         for _ in range(2):
             for player in self.players:
                 player.receive_card(self.deck.deal())
-        for player in self.players:
-            print(f"{player.name} hand: {player.hand[0]}  {player.hand[1]}")
+        # for player in self.players:
+        #     print(f"{player.name} hand: {player.hand[0]}  {player.hand[1]}")
 
     # Burns 1 card
     def _burn_card(self):
@@ -151,10 +151,10 @@ class TexasHoldem:
     def _betting_round(self):
 
         # Players who have money and have not folded
-        print([p.name for p in self.players if (p.chips.total_value() > 0 or p.bet.total_value() > 0)])
+        # print([p.name for p in self.players if (p.chips.total_value() > 0 or p.bet.total_value() > 0)])
         active_players = [p for p in self.players if not p.folded and (p.chips.total_value() > 0 or p.bet.total_value() > 0)]
-        for p in self.players:
-            print(f"Player: {p.name}, Folded: {p.folded}, Chips: {p.chips.total_value()}, Bet: {p.bet.total_value()}")
+        # for p in self.players:
+        #     print(f"Player: {p.name}, Folded: {p.folded}, Chips: {p.chips.total_value()}, Bet: {p.bet.total_value()}")
         if len(active_players) <= 1:
             return
 
@@ -171,7 +171,7 @@ class TexasHoldem:
                 # Dealer is the big blind so don't include them in the pre-flop call
                 start_idx = (self.dealer_idx + 1) % len(active_players)
                 player_queue = [active_players[start_idx]]
-                print([p.name for p in player_queue])
+                # print([p.name for p in player_queue])
                 # active_players = [p for p in self.players if not p.folded and (p.chips.total_value() > 0 or p.bet.total_value() > 0)]
         # Post-flop
         else:
@@ -195,7 +195,7 @@ class TexasHoldem:
             # print(f"Need to call: {to_call}")
             # print(f"Additional chips needed: {additional_chips}\n")
             
-            print(f"{player.name} chooses to {action.name if action else "No Action"} with amount ${amount if amount else 0}")
+            # print(f"{player.name} chooses to {action.name if action else "No Action"} with amount ${amount if amount else 0}")
             if player.name is active_players[(self.dealer_idx + 1) % len(active_players)].name:
                 if not self.sb_paid:
                     trash = ChipStash()
@@ -246,11 +246,11 @@ class TexasHoldem:
                     st_idx = (player_idx + 1) % len(non_folded_players)
                     player_queue = non_folded_players[st_idx:] + non_folded_players[:player_idx]
 
-        print('\n')
-        for p in self.players:
-            print(f"{p.name} bet a total of ${p.bet.total_value()} this round!: {p.chips}")
+        # print('\n')
+        # for p in self.players:
+        #     print(f"{p.name} bet a total of ${p.bet.total_value()} this round!: {p.chips}")
             
-        print('\n')
+        # print('\n')
         self._resolve_pots()
 
     def _resolve_pots(self):
@@ -281,9 +281,9 @@ class TexasHoldem:
                 pot_idx += 1
                 
 
-        print(f"Main pot: ${self.main_pot.total_value()}")
-        for i, side in enumerate(self.side_pots):
-            print(f"Side pot {i+1}: ${side.total_value()}")
+        # print(f"Main pot: ${self.main_pot.total_value()}")
+        # for i, side in enumerate(self.side_pots):
+        #     print(f"Side pot {i+1}: ${side.total_value()}")
 
     def _showdown(self):
         # Evaluate hands for all active players
@@ -304,30 +304,30 @@ class TexasHoldem:
         else:  # It's a single winner tuple (player, rank, values)
             winners = [results[0][0]]
 
-        print("\nShowdown Results:")
-        self._display_community_cards()
+        # print("\nShowdown Results:")
+        # self._display_community_cards()
 
-        for player in finalists:
-            hand_rank, card_val = player.hand_eval
-            print(f"{player.name}:")
-            print(f"   Hand: {player.hand[0]} {player.hand[1]}")
-            print(f"   Best hand: {hand_rank}")
-            print(f"   ", " ".join(str(card) for card in card_val))
+        # for player in finalists:
+        #     hand_rank, card_val = player.hand_eval
+        #     print(f"{player.name}:")
+        #     print(f"   Hand: {player.hand[0]} {player.hand[1]}")
+        #     print(f"   Best hand: {hand_rank}")
+        #     print(f"   ", " ".join(str(card) for card in card_val))
         
-        for winner in winners:
-            hand_rank, card_val = winner.hand_eval
-            print(f"{winner.name} has won the round!")
-            print(f"   Best hand: {hand_rank}")
-            print(f"   Cards: ", " ".join(str(card) for card in card_val))
+        # for winner in winners:
+        #     hand_rank, card_val = winner.hand_eval
+        #     print(f"{winner.name} has won the round!")
+        #     print(f"   Best hand: {hand_rank}")
+        #     print(f"   Cards: ", " ".join(str(card) for card in card_val))
 
         # Distribute the main pot - only to winners who contributed to this pot
         eligible_main_pot_winners = [p for p in winners if p.name in self.main_pot.contributors]
-        print(f"Main pot: {self.main_pot.total_value()}")
+        # print(f"Main pot: {self.main_pot.total_value()}")
         self._distribute_pot(self.main_pot, eligible_main_pot_winners)
 
         # Distribute side pots (if any) - only to winners who contributed to each specific pot
         for pot in self.side_pots:
-            print(f"Side pot: {pot.total_value()}")
+            # print(f"Side pot: {pot.total_value()}")
             eligible_pot_winners = [p for p in winners if p.name in pot.contributors]
             self._distribute_pot(pot, eligible_pot_winners)
 
@@ -340,13 +340,13 @@ class TexasHoldem:
         sorted_winners = sorted(winner_indices, key=lambda i: (i - self.dealer_idx) % len(self.players), reverse=True)
         winner_order = [self.players[i] for i in sorted_winners]
         
-        print(f"Distributing pot of ${pot.total_value()} among {len(winners)} winners")
+        # print(f"Distributing pot of ${pot.total_value()} among {len(winners)} winners")
         
         # Calculate each player's base share
         share_value = pot.total_value() // len(winners)
         remainder_value = pot.total_value() % len(winners)
         
-        print(f"Each winner gets ${share_value}, with ${remainder_value} remainder")
+        # print(f"Each winner gets ${share_value}, with ${remainder_value} remainder")
         
         # Create a copy of the pot to work with
         remaining_pot = pot.copy()
@@ -390,7 +390,7 @@ class TexasHoldem:
                         remaining_share -= chip_value * chips_to_give
             
             # Transfer chips to the winner - FIXED: Add chips directly to winner's stash
-            print(f"{winner.name} receives ${winner_share.total_value()}")
+            # print(f"{winner.name} receives ${winner_share.total_value()}")
             # winner.chips.transfer_chips(winner_share, winner_share)  # THIS IS THE BUG!
             # Correct way: directly add each chip to the winner's stash
             for chip_value, chip_count in winner_share.inventory.items():
@@ -411,11 +411,11 @@ class TexasHoldem:
                         winner = winner_order[idx % len(winner_order)]
                         winner.chips.add_chips(chip_value, 1)
                         remaining_pot.remove_chips(chip_value, 1)
-                        print(f"{winner.name} receives an extra ${chip_value} chip")
+                        # print(f"{winner.name} receives an extra ${chip_value} chip")
                         
                         # Move to next player
                         idx = idx + 1 % len(self.players)
                         break
 
-        for p in self.players:
-            print(f"{p.name} has {p.chips}")
+        # for p in self.players:
+        #     print(f"{p.name} has {p.chips}")
