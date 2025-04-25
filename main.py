@@ -14,11 +14,12 @@ import sys
 
 # Configuration
 POPULATION_SIZE = 50
-GENERATIONS = 100
-CROSSOVER_PROBABILITY = 0.9
+GENERATIONS = 50
+CROSSOVER_PROBABILITY = 0.3
 MUTATION_PROBABILITY = 0.1
 MAX_PLAYERS_PER_GAME = 7
-TOURNAMENT_K = 20
+TOURNAMENT_K = 30
+ROUND_CUTOFF = 3000
 
 def print_progress_bar(current, total, bar_length=40):
     percent = float(current) / total
@@ -84,7 +85,17 @@ def evolve_population(population):
         if random.random() < CROSSOVER_PROBABILITY:
             child = crossover(parent1, parent2)
         else:
-            child = parent1.copy()
+            child = random.choice([parent1, parent2]).copy()
+
+            # Have to reset the childs poker game information
+            child.chips = child.initial_chips.copy()
+            child.name = str(uuid.uuid4())[:8]
+            child.reset()
+            child.raised = False
+            child.rounds_survived = 0
+            child.actions_called = {action: 0 for action in Action}
+            child.position = None
+
         if parent1.fitness >= parent2.fitness:
             child.lineage = parent1.lineage
         else:
@@ -143,12 +154,12 @@ def main():
     set_individual_history(lineage_history, -1, population)
 
     for generation in range(GENERATIONS):
-        print_progress_bar(generation + 1, GENERATIONS)
-        evaluated_population = run_sim(population, MAX_PLAYERS_PER_GAME)
+        print_progress_bar(generation, GENERATIONS)
+        evaluated_population = run_sim(population, MAX_PLAYERS_PER_GAME, ROUND_CUTOFF)
         set_population_stats(population_stats, generation, population)
         set_individual_history(lineage_history, generation, population)
         population = evolve_population(evaluated_population)
-
+    print_progress_bar(GENERATIONS, GENERATIONS)
     print("\nEvolution complete.")
 
     # Flatten and save
@@ -167,7 +178,8 @@ def main():
         "CROSSOVER_PROBABILITY": CROSSOVER_PROBABILITY,
         "MUTATION_PROBABILITY": MUTATION_PROBABILITY,
         "MAX_PLAYERS_PER_GAME": MAX_PLAYERS_PER_GAME,
-        "TOURNAMENT_K": TOURNAMENT_K
+        "TOURNAMENT_K": TOURNAMENT_K,
+        "ROUND_CUTOFF": ROUND_CUTOFF
     }
     with open(os.path.join(base_folder, "config.json"), "w") as f:
         json.dump(config, f, indent=4)
