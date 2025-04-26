@@ -11,24 +11,19 @@ import pandas as pd
 import os
 import json
 import sys
+from itertools import product
+from tqdm import trange, tqdm
 
 # Configuration
-POPULATION_SIZE = 50
+ITERATIONS = 1
 GENERATIONS = 50
-CROSSOVER_PROBABILITY = 0.3
-MUTATION_PROBABILITY = 0.1
-MAX_PLAYERS_PER_GAME = 7
-TOURNAMENT_K = 30
-ROUND_CUTOFF = 3000
 
-def print_progress_bar(current, total, bar_length=40):
-    percent = float(current) / total
-    arrow = '-' * int(round(percent * bar_length) - 1) + '>'
-    spaces = ' ' * (bar_length - len(arrow))
-    sys.stdout.write(f'\rProgress: [{arrow}{spaces}] {int(percent * 100)}% ({current}/{total})')
-    sys.stdout.flush()
-    if current == total:
-        print()
+POPULATION_SIZES = [50]
+CROSSOVER_PROBABILITIES = [0.3]
+MUTATION_PROBABILITIES = [0.1]
+MAX_PLAYERS_PER_GAMES = [7]
+TOURNAMENT_KS = [30]
+ROUND_CUTOFFS = [3000]
 
 def get_unique_folder(base):
     i = 1
@@ -77,12 +72,12 @@ def flatten_lineage_history(lineage_hist):
                 flat.append(row)
     return flat
 
-def evolve_population(population):
+def evolve_population(population, tournament_k, crossover_probability, mutation_probability):
     new_population = []
     while len(new_population) < len(population):
-        parent1 = tournament_selection(TOURNAMENT_K, population)
-        parent2 = tournament_selection(TOURNAMENT_K, population)
-        if random.random() < CROSSOVER_PROBABILITY:
+        parent1 = tournament_selection(tournament_k, population)
+        parent2 = tournament_selection(tournament_k, population)
+        if random.random() < crossover_probability:
             child = crossover(parent1, parent2)
         else:
             child = random.choice([parent1, parent2]).copy()
@@ -100,7 +95,7 @@ def evolve_population(population):
             child.lineage = parent1.lineage
         else:
             child.lineage = parent2.lineage
-        if random.random() < MUTATION_PROBABILITY:
+        if random.random() < mutation_probability:
             child = mutate(child)
             child.lineage = str(uuid.uuid4())[:12]
         new_population.append(child)
@@ -147,45 +142,71 @@ def set_individual_history(individual_hist, generation, population):
             "actions_made": p.actions_called.copy()
         })
 
-def main():
-    population = initiate_player(POPULATION_SIZE)
+def run_combination(iteration, population_size, generations, crossover_probability, mutation_probability, max_players_per_game, tournament_k, round_cutoff):
+    population = initiate_player(population_size)
     population_stats = {}
     lineage_history = {}
     set_individual_history(lineage_history, -1, population)
 
-    for generation in range(GENERATIONS):
-        print_progress_bar(generation, GENERATIONS)
-        evaluated_population = run_sim(population, MAX_PLAYERS_PER_GAME, ROUND_CUTOFF)
+    for generation in trange(generations, desc="Generations", unit="gen"):
+        evaluated_population = run_sim(population, max_players_per_game, round_cutoff)
         set_population_stats(population_stats, generation, population)
         set_individual_history(lineage_history, generation, population)
-        population = evolve_population(evaluated_population)
-    print_progress_bar(GENERATIONS, GENERATIONS)
-    print("\nEvolution complete.")
+        population = evolve_population(evaluated_population, tournament_k, crossover_probability, mutation_probability)
+    tqdm.write("Evolution complete.")
 
     # Flatten and save
     generation_avg = pd.DataFrame(flatten_population_stats(population_stats))
     lineage_data = pd.DataFrame(flatten_lineage_history(lineage_history))
 
-    base_folder = get_unique_folder("output/run")
-    pop_stat_folder = os.path.join(base_folder, "population_stats")
-    lineage_folder = os.path.join(base_folder, "lineage_history")
-    os.makedirs(pop_stat_folder)
-    os.makedirs(lineage_folder)
+    # append iteration to all entries in both dataframes
+    generation_avg["iteration"] = iteration
+    lineage_data["iteration"] = iteration
 
-    config = {
-        "POPULATION_SIZE": POPULATION_SIZE,
-        "GENERATIONS": GENERATIONS,
-        "CROSSOVER_PROBABILITY": CROSSOVER_PROBABILITY,
-        "MUTATION_PROBABILITY": MUTATION_PROBABILITY,
-        "MAX_PLAYERS_PER_GAME": MAX_PLAYERS_PER_GAME,
-        "TOURNAMENT_K": TOURNAMENT_K,
-        "ROUND_CUTOFF": ROUND_CUTOFF
-    }
-    with open(os.path.join(base_folder, "config.json"), "w") as f:
-        json.dump(config, f, indent=4)
+    return generation_avg, lineage_data
 
-    generation_avg.to_csv(os.path.join(pop_stat_folder, "population_stats.csv"), index=False)
-    lineage_data.to_csv(os.path.join(lineage_folder, "lineage_history.csv"), index=False)
+def main():
+    # combinations of parameters
+    for population_size, crossover_probability, mutation_probability, max_players_per_game, tournament_k, round_cutoff in product(
+    POPULATION_SIZES, CROSSOVER_PROBABILITIES, MUTATION_PROBABILITIES, MAX_PLAYERS_PER_GAMES, TOURNAMENT_KS, ROUND_CUTOFFS):
+    
+        combination = f"{population_size}_{crossover_probability}_{mutation_probability}_{max_players_per_game}_{tournament_k}_{round_cutoff}"
+
+        base_folder = get_unique_folder("output/combination_" + combination)
+        pop_stat_folder = os.path.join(base_folder, "population_stats")
+        lineage_folder = os.path.join(base_folder, "lineage_history")
+        os.makedirs(pop_stat_folder)
+        os.makedirs(lineage_folder)
+
+        config = {
+            "POPULATION_SIZE": population_size,
+            "GENERATIONS": GENERATIONS,
+            "CROSSOVER_PROBABILITY": crossover_probability,
+            "MUTATION_PROBABILITY": mutation_probability,
+            "MAX_PLAYERS_PER_GAME": max_players_per_game,
+            "TOURNAMENT_K": tournament_k,
+            "ROUND_CUTOFF": round_cutoff,
+            "ITERATIONS": ITERATIONS
+        }
+        with open(os.path.join(base_folder, "config.json"), "w") as f:
+            json.dump(config, f, indent=4)
+
+        gen_aggegated = []
+        lineage_aggegated = []
+
+        for iteration in trange(ITERATIONS, desc="Iterations", unit="iter"):
+            generation_avg, lineage_data = run_combination(iteration, population_size, GENERATIONS, crossover_probability, mutation_probability,
+                                                           max_players_per_game, tournament_k, round_cutoff)
+            gen_aggegated.append(generation_avg)
+            lineage_aggegated.append(lineage_data)
+
+        # Concatenate all dataframes
+        generation_avg = pd.concat(gen_aggegated, ignore_index=True)
+        lineage_data = pd.concat(lineage_aggegated, ignore_index=True)
+
+        # Save to CSV
+        generation_avg.to_csv(os.path.join(pop_stat_folder, "population_stats.csv"), index=False)
+        lineage_data.to_csv(os.path.join(lineage_folder, "lineage_history.csv"), index=False)
 
 if __name__ == "__main__":
     main()
