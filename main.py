@@ -18,11 +18,11 @@ from tqdm import trange, tqdm
 ITERATIONS = 1
 GENERATIONS = 50
 
-POPULATION_SIZES = [50]
-CROSSOVER_PROBABILITIES = [0.3]
-MUTATION_PROBABILITIES = [0.1]
-MAX_PLAYERS_PER_GAMES = [7]
-TOURNAMENT_KS = [30]
+POPULATION_SIZES = [25, 50, 75]
+CROSSOVER_PROBABILITIES = [0.2, 0.5, 0.8]
+MUTATION_PROBABILITIES = [0.2, 0.5, 0.8]
+MAX_PLAYERS_PER_GAMES = [6, 8]
+TOURNAMENT_KS = [5, 10, 20, 30, 40, 50]
 ROUND_CUTOFFS = [3000]
 
 def get_unique_folder(base):
@@ -168,11 +168,18 @@ def run_combination(iteration, population_size, generations, crossover_probabili
 def main():
     # combinations of parameters
     for population_size, crossover_probability, mutation_probability, max_players_per_game, tournament_k, round_cutoff in product(
-    POPULATION_SIZES, CROSSOVER_PROBABILITIES, MUTATION_PROBABILITIES, MAX_PLAYERS_PER_GAMES, TOURNAMENT_KS, ROUND_CUTOFFS):
-    
+        POPULATION_SIZES, CROSSOVER_PROBABILITIES, MUTATION_PROBABILITIES, MAX_PLAYERS_PER_GAMES, TOURNAMENT_KS, ROUND_CUTOFFS):
+        # Skip if tournament_k is greater than population_size
+        if tournament_k > population_size:
+            print(f"Skipping {population_size=}, {tournament_k=}: tournament_k > population_size")
+            continue
         combination = f"{population_size}_{crossover_probability}_{mutation_probability}_{max_players_per_game}_{tournament_k}_{round_cutoff}"
-
-        base_folder = get_unique_folder("output/combination_" + combination)
+        base_folder = f"output/combination_{combination}"
+        # Skip if folder already exists
+        if os.path.exists(base_folder):
+            print(f"Skipping {combination} (already exists)")
+            continue
+        base_folder = get_unique_folder(base_folder)
         pop_stat_folder = os.path.join(base_folder, "population_stats")
         lineage_folder = os.path.join(base_folder, "lineage_history")
         os.makedirs(pop_stat_folder)
