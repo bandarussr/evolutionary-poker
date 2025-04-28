@@ -54,7 +54,7 @@ class Player:
             "aggressiveness": float(f"{random.uniform(0, 1):.2f}"),
             "risk_tolerance": float(f"{random.uniform(0, 1):.2f}"),
             "bluff_tendency": float(f"{random.uniform(0, 1):.2f}"),
-            "adaptability": float(f"{random.uniform(0, 1):.2f}"),
+            # "adaptability": float(f"{random.uniform(0, 1):.2f}"),
             "position_awareness": float(f"{random.uniform(0, 1):.2f}"),
             "chip_size_awareness": float(f"{random.uniform(0, 1):.2f}")
         }
