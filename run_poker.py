@@ -1,7 +1,7 @@
 # main.py
 
-from player import Player
-from poker import TexasHoldem
+from Poker.player import Player
+from Poker.poker import TexasHoldem
 
 
 def main():
@@ -40,7 +40,8 @@ def test_chip_consistency(num_tournaments=10):
         
         # Initialize new players for each tournament
         player_names = ["Alice", "Bob", "Charlie", "Diana"]
-        players = [Player(name, i) for i, name in enumerate(player_names)]
+        # Initialize players and set their positions
+        players = [Player(name) for i, name in enumerate(player_names)]
         
         # Create the game instance
         game = TexasHoldem(players)
@@ -101,7 +102,12 @@ def test_chip_consistency(num_tournaments=10):
         print(f"   {p.name} lasted {p.rounds_survived} rounds!")
         for action, count in p.actions_called.items():
             print(f"      {p.name} {action} {count} times!")
-
+            # Print player traits
+    print("\n=== Player Traits ===")
+    for player in game.initial_players:
+        print(f"Player: {player.name}")
+        for trait, value in player.traits.items():
+            print(f"  {trait}: {value}")
     # Final overall consistency check
     print(f"\n=== Overall Results Across {num_tournaments} Tournaments ===")
     print(f"Total rounds played: {total_rounds_played}")
@@ -122,4 +128,4 @@ if __name__ == "__main__":
     # main()
     
     # Run the chip consistency test
-    test_chip_consistency(10)
+    test_chip_consistency(100)

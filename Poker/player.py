@@ -1,8 +1,9 @@
 from enum import Enum, auto
 from typing import List
 import random
+import numpy as np
 
-from Poker.chip import Chips, ChipStash
+from Poker.chip import Chips, ChipStash, dollar_to_chips
 from Poker.deck import Card
 from Poker.evaluate import Eval
 
@@ -24,7 +25,15 @@ class Player:
             Chips.Blue: 2,
             Chips.Black: 1
         })
-
+        self.player_state = {
+            'hand_strength': 0,
+            'pot_odds': 0,
+            'improvement_chance': 0,
+            'street': 0,
+            'position': 0,
+            'stack_ratio': 1.0,
+            'can_check': False,
+        }
         self.chips = self.initial_chips.copy()
         self.name = name
         self.evaluator = Eval()
@@ -43,6 +52,7 @@ class Player:
         self.lineage_fitness = 0
         self.fitness = 0
     
+
     def set_pos(self, pos):
         self.position = pos
 
@@ -260,3 +270,115 @@ class Player:
         new_player.lineage_fitness = self.lineage_fitness
         new_player.fitness = self.fitness
         return new_player
+    
+
+    def make_decision_v2(self, pot_size, min_raise):
+        # Inputs
+        hand_strength = self.player_state['hand_strength']
+        pot_odds = self.player_state['pot_odds']
+        improvement_chance = self.player_state['improvement_chance']
+        street = self.player_state['street']
+        position = self.player_state['position']
+        stack_ratio = self.player_state['stack_ratio']
+        can_check = self.player_state['can_check']
+        has_raised = self.raised
+
+        # Street factor
+        street_factors = {
+            'preflop': 0.5,
+            'flop': 0.7,
+            'turn': 0.9,
+            'river': 1.0
+        }
+        street_factor = street_factors.get(street, 1.0)
+
+        effective_hand_strength = (hand_strength * street_factor) + (improvement_chance * (1 - street_factor))
+
+        # Stack pressure
+        stack_pressure = np.clip(1 / stack_ratio, 0.5, 2.0)
+
+        # Base desirability scores
+        fold_score = (1 - effective_hand_strength) * (1 - pot_odds)
+        call_score = effective_hand_strength * pot_odds
+        raise_score = effective_hand_strength * (1 + pot_odds)
+        all_in_score = effective_hand_strength + self.traits['risk_tolerance'] + (1 - stack_pressure)
+
+        # Trait modifications
+        raise_score *= (1 + self.traits['aggressiveness'])
+        call_score *= (1 + self.traits['risk_tolerance'])
+        fold_score *= (1 - self.traits['risk_tolerance'])
+
+        raise_score *= (1 + self.traits['position_awareness'] * position)
+        fold_score *= (1 - self.traits['position_awareness'] * position)
+
+        raise_score *= (1 + self.traits['chip_size_awareness'] * (1 - stack_pressure))
+        fold_score *= (1 + self.traits['chip_size_awareness'] * (stack_pressure - 1))
+
+        # Bluff attempt
+        is_bluff = False
+        if np.random.rand() < self.traits['bluff_tendency']:
+            is_bluff = True
+            raise_score *= 1.5
+            call_score *= 0.7
+
+        # Assemble action space
+        if has_raised:
+            # Player already raised → cannot raise/all-in again
+            scores = np.array([fold_score, call_score])
+            actions = [Action.FOLD, Action.CALL]
+        else:
+            # Full action set
+            scores = np.array([fold_score, call_score, raise_score, all_in_score])
+            actions = [Action.FOLD, Action.CALL, Action.RAISE, Action.ALL_IN]
+
+        # Normalize
+        probabilities = np.exp(scores) / np.exp(scores).sum()
+        decision = np.random.choice(actions, p=probabilities)
+
+        # If player can check and 'call' is chosen
+        if decision == Action.CALL and can_check:
+            decision = Action.CHECK
+
+        # Bluff tagging
+        if is_bluff and decision in [Action.CALL, Action.RAISE, Action.CHECK]:
+            decision = Action.BLUFF
+        amount = 0
+        if decision == Action.RAISE or decision == Action.BLUFF:
+            amount = self.raise_amount(pot_size, min_raise,is_bluff=True if decision == Action.BLUFF else False)
+        if amount > self.chips.total_value():
+            decision = Action.ALL_IN
+        if decision == Action.ALL_IN:
+            amount = self.chips.total_value()
+        self.actions_called[decision] += 1
+        # print(f"{self.name}: ({decision}, {amount})")
+        return decision, dollar_to_chips(amount)
+
+    def raise_amount(self, pot_size, min_raise, is_bluff=False):
+        player_stack = self.chips.total_value()
+        hand_strength = self.player_state['hand_strength']
+        stack_ratio = self.player_state['stack_ratio']
+        already_invested = self.bet.total_value()
+        street = self.player_state['street']
+
+        # Start at minimum allowed raise
+        base_raise = min_raise
+
+        if is_bluff:
+            bluff_aggressiveness = self.traits['aggressiveness'] + self.traits['risk_tolerance']
+            commitment_factor = already_invested / max(1, pot_size)
+
+            # Bluff multiplier from player style and situation
+            bluff_multiplier = bluff_aggressiveness * commitment_factor
+
+            base_raise *= (1 + bluff_multiplier)
+        else:
+            # For real raises, based on hand strength and player traits
+            base_raise *= (1 + hand_strength + self.traits['aggressiveness'] + self.traits['risk_tolerance'])
+
+        # Stack pressure scaling
+        stack_pressure = np.clip(1 / stack_ratio, 0.5, 2.0)
+        base_raise *= (1 + self.traits['chip_size_awareness'] * (1 - stack_pressure))
+
+        # Clip within allowed range
+        raise_amount = int(np.clip(base_raise, min_raise, player_stack))
+        return raise_amount

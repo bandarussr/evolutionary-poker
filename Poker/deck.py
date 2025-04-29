@@ -46,6 +46,9 @@ class Card:
     def display(self):
         if self.rank and self.suit:
             dealer.print_card(self.rank, self.suit)
+
+    def copy(self):
+        return Card(self.rank, self.suit)
     
 
 class Deck():
